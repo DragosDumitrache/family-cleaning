@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" fill="none" stroke="#c9a85a" stroke-linecap="round" stroke-linejoin="round" aria-label="Family Cleaning">
+  <g transform="translate(4, 4)">
+    <line x1="25" y1="6" x2="25" y2="14" stroke-width="0.9"/>
+    <path d="M 18 14 L 32 14 L 32 52 L 18 52 Z" stroke-width="1.6" fill="#c9a85a" fill-opacity="0.08"/>
+    <path d="M 21 14 L 21 12 L 29 12 L 29 14" stroke-width="1.6"/>
+    <line x1="22" y1="19" x2="22" y2="48" stroke-width="0.8" opacity="0.85"/>
+    <line x1="25" y1="19" x2="25" y2="48" stroke-width="0.8" opacity="0.85"/>
+    <line x1="28" y1="19" x2="28" y2="48" stroke-width="0.8" opacity="0.85"/>
+    <path d="M 32 24 L 46 24 L 46 52 L 32 52 Z" stroke-width="1.6" fill="#c9a85a" fill-opacity="0.08"/>
+    <line x1="36" y1="28" x2="36" y2="48" stroke-width="0.8" opacity="0.85"/>
+    <line x1="39" y1="28" x2="39" y2="48" stroke-width="0.8" opacity="0.85"/>
+    <line x1="42" y1="28" x2="42" y2="48" stroke-width="0.8" opacity="0.85"/>
+    <line x1="14" y1="52" x2="50" y2="52" stroke-width="1.6"/>
+    <path d="M 10 16 L 10 12 M 8 14 L 12 14" stroke-width="1.1"/>
+    <path d="M 52 18 L 52 14 M 50 16 L 54 16" stroke-width="1.1"/>
+  </g>
+  <g fill="#c9a85a" stroke="none" font-family="'Instrument Serif', Georgia, 'Times New Roman', serif" font-style="italic">
+    <text x="72" y="32" font-size="26">Family</text>
+    <text x="72" y="60" font-size="26">Cleaning</text>
+    <line x1="72" y1="40" x2="160" y2="40" stroke="#c9a85a" stroke-width="0.6" opacity="0.6"/>
+  </g>
+</svg>

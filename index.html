@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<title>Family Cleaning — Pick a direction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #18181a;
+    --bg-2: #232326;
+    --paper: #fff;
+    --ink: #f4f3f0;
+    --muted: #8a8a90;
+    --line: #2d2d31;
+    --accent: #c8b694;
+    --sans: "Inter Tight", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --serif: "Instrument Serif", Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .page {
+    max-width: 1400px; margin: 0 auto; padding: 56px 40px 80px;
+  }
+  .top-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 64px;
+  }
+  .brand { font-family: var(--serif); font-size: 26px; letter-spacing: 0.005em; }
+  .brand .dot { color: var(--accent); }
+  .tag {
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px;
+  }
+
+  .intro { max-width: 760px; margin-bottom: 72px; }
+  .intro .eyebrow {
+    font-family: var(--serif); font-style: italic; font-size: 21px; color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .intro h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(48px, 6vw, 84px); line-height: 1.02; letter-spacing: -0.015em;
+    margin-bottom: 24px;
+  }
+  .intro h1 em { font-style: italic; color: var(--accent); }
+  .intro p { color: var(--muted); font-size: 17px; max-width: 580px; }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  }
+
+  .card {
+    background: var(--bg-2);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.16); box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6); }
+
+  .preview {
+    position: relative; aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #fff;
+  }
+  .preview iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1440px; height: 1080px;
+    border: 0;
+    transform: scale(0.32);
+    transform-origin: top left;
+    pointer-events: none;
+    background: #fff;
+  }
+  .preview .open-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 30%);
+    opacity: 0;
+    transition: opacity .25s;
+    display: flex; align-items: flex-end; justify-content: flex-end;
+    padding: 18px;
+  }
+  .card:hover .preview .open-overlay { opacity: 1; }
+  .preview .open-pill {
+    background: rgba(255,255,255,0.95); color: #1a1a1a;
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .meta { padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .meta .header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .meta .swatch-row { display: flex; gap: 6px; flex-shrink: 0; }
+  .meta .swatch { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
+
+  .meta h3 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 30px; line-height: 1.1; letter-spacing: -0.005em;
+  }
+  .meta .num {
+    font-family: var(--serif); font-style: italic;
+    color: var(--accent); font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .meta .desc { color: var(--muted); font-size: 14.5px; flex: 1; }
+  .meta .specs {
+    display: flex; gap: 14px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--muted); flex-wrap: wrap;
+  }
+  .meta .specs span { display: inline-flex; align-items: center; gap: 6px; }
+  .meta .specs span::before {
+    content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+  }
+
+  .meta .actions { display: flex; gap: 8px; margin-top: 4px; }
+  .meta .actions a {
+    flex: 1;
+    padding: 11px 14px; border-radius: 10px;
+    font-size: 14px; font-weight: 500;
+    text-align: center;
+    transition: background .2s, color .2s;
+  }
+  .meta .actions a.primary { background: var(--paper); color: #18181a; }
+  .meta .actions a.primary:hover { background: var(--accent); }
+  .meta .actions a.ghost {
+    background: transparent; color: var(--ink); border: 1px solid var(--line);
+  }
+  .meta .actions a.ghost:hover { border-color: rgba(255,255,255,0.3); }
+
+  .footer-note {
+    margin-top: 72px;
+    padding: 36px; border-radius: 16px;
+    background: var(--bg-2); border: 1px solid var(--line);
+    display: flex; gap: 36px; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .footer-note h4 {
+    font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.2;
+    max-width: 580px;
+  }
+  .footer-note p { color: var(--muted); font-size: 14.5px; margin-top: 8px; max-width: 580px; }
+
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: 1fr; }
+    .top-row { flex-direction: column; gap: 16px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="top-row">
+    <div class="brand">Family Cleaning<span class="dot"> · </span><span style="color: var(--muted); font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; font-family: var(--sans);">Studio</span></div>
+    <span class="tag">3 directions · v1 · May 2026</span>
+  </div>
+
+  <div class="intro">
+    <div class="eyebrow">Brief · website design</div>
+    <h1>Three takes on a <em>simple, fresh</em> home-cleaning website.</h1>
+    <p>Each direction is a complete one-page site — header, hero, services with pricing, testimonials, service area, and a booking form — with bilingual RO/EN content and image placeholders for your own photos. Click into any one to feel it at full size, then we'll refine the favorite.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- Direction 1 -->
+    <div class="card">
+      <a href="d1-editorial.html" class="preview">
+        <iframe src="d1-editorial.html" loading="lazy" scrolling="no"></iframe>
+        <div class="open-overlay"><span class="open-pill">Open site →</span></div>
+      </a>
+      <div class="meta">
+        <div class="header-row">
+          <div>
+            <div class="num">— Direction 01</div>
+            <h3>Editorial premium</h3>
+          </div>
+          <div class="swatch-row" title="Cream · sage · ink">
+            <span class="swatch" style="background:#f4f0e6"></span>
+            <span class="swatch" style="background:#3b4e3a"></span>
+            <span class="swatch" style="background:#1a1d18"></span>
+          </div>
+        </div>
+        <div class="desc">Warm cream and forest sage, Instrument Serif headlines, generous whitespace. Reads like a quiet hotel brand — for clients who value calm and craft.</div>
+        <div class="specs">
+          <span>Cream + sage</span>
+          <span>Serif / sans pair</span>
+          <span>Editorial layout</span>
+        </div>
+        <div class="actions">
+          <a href="d1-editorial.html" class="primary">Open →</a>
+          <a href="d1-editorial.html" class="ghost">Preview</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direction 2 -->
+    <div class="card">
+      <a href="d2-crisp.html" class="preview">
+        <iframe src="d2-crisp.html" loading="lazy" scrolling="no"></iframe>
+        <div class="open-overlay"><span class="open-pill">Open site →</span></div>
+      </a>
+      <div class="meta">
+        <div class="header-row">
+          <div>
+            <div class="num">— Direction 02</div>
+            <h3>Crisp modern</h3>
+          </div>
+          <div class="swatch-row" title="White · slate blue · navy">
+            <span class="swatch" style="background:#ffffff"></span>
+            <span class="swatch" style="background:#1e4a7a"></span>
+            <span class="swatch" style="background:#0e1a26"></span>
+          </div>
+        </div>
+        <div class="desc">Pure white, deep slate blue, Space Grotesk throughout. Tight grid, structured cards, float-card details. Confident and professional — feels like a SaaS-quality service brand.</div>
+        <div class="specs">
+          <span>White + slate blue</span>
+          <span>Geometric sans</span>
+          <span>Card-based</span>
+        </div>
+        <div class="actions">
+          <a href="d2-crisp.html" class="primary">Open →</a>
+          <a href="d2-crisp.html" class="ghost">Preview</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direction 3 -->
+    <div class="card">
+      <a href="d3-natural.html" class="preview">
+        <iframe src="d3-natural.html" loading="lazy" scrolling="no"></iframe>
+        <div class="open-overlay"><span class="open-pill">Open site →</span></div>
+      </a>
+      <div class="meta">
+        <div class="header-row">
+          <div>
+            <div class="num">— Direction 03</div>
+            <h3>Soft natural</h3>
+          </div>
+          <div class="swatch-row" title="Eggshell · eucalyptus · warm sand">
+            <span class="swatch" style="background:#faf7f0"></span>
+            <span class="swatch" style="background:#5c7a64"></span>
+            <span class="swatch" style="background:#d9c3a0"></span>
+          </div>
+        </div>
+        <div class="desc">Eggshell with eucalyptus and warm sand, Cormorant Garamond italics, rounded everything. Warm, human, family-forward — leans into the "family" in your name without being twee.</div>
+        <div class="specs">
+          <span>Eggshell + eucalyptus</span>
+          <span>Garamond / DM Sans</span>
+          <span>Rounded · warm</span>
+        </div>
+        <div class="actions">
+          <a href="d3-natural.html" class="primary">Open →</a>
+          <a href="d3-natural.html" class="ghost">Preview</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-note">
+    <div>
+      <h4>Pick a favorite and we'll refine it.</h4>
+      <p>Each direction is fully functional — try the RO / EN toggle in the top right, scroll through, drop your own photos onto the placeholders. Once you pick one, we'll tune copy, swap in real photos, and tighten the details.</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="d1-editorial.html" style="padding: 11px 16px; border-radius: 999px; background: var(--paper); color: #18181a; font-size: 14px; font-weight: 500;">Start with D1 →</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

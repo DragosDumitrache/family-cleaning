@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Family Cleaning — Soft Natural</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="image-slot.js"></script>
+<style>
+  :root {
+    --bg: #faf7f0;
+    --bg-2: #f1ede3;
+    --bg-3: #e6e7dd;
+    --paper: #ffffff;
+    --ink: #25271f;
+    --ink-2: #4d5043;
+    --muted: #828374;
+    --line: #e3dfd1;
+    --eucalyptus: #5c7a64;
+    --eucalyptus-deep: #3d5a45;
+    --sand: #d9c3a0;
+    --sand-deep: #8e6f47;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --pad-x: clamp(24px, 6vw, 96px);
+    --r: 20px;
+    --r-lg: 32px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .container { max-width: 1300px; margin: 0 auto; padding: 0 var(--pad-x); }
+
+  /* ── Header ─────────────────────────────────────────── */
+  header.top {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250, 247, 240, 0.88);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+  }
+  .top-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px var(--pad-x);
+    max-width: 1300px; margin: 0 auto;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: -0.005em;
+  }
+  .brand .mark {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--eucalyptus); color: var(--paper);
+    display: grid; place-items: center;
+    font-family: var(--serif); font-size: 22px; font-weight: 500; font-style: italic;
+  }
+  .brand .mark span { line-height: 1; padding-top: 2px; }
+  nav.primary { display: flex; gap: 30px; align-items: center; }
+  nav.primary a { font-size: 15px; color: var(--ink-2); transition: color .2s; }
+  nav.primary a:hover { color: var(--eucalyptus); }
+  .top-actions { display: flex; align-items: center; gap: 16px; }
+  .lang-switch {
+    display: inline-flex; border-radius: 999px; padding: 3px;
+    background: var(--bg-2);
+  }
+  .lang-switch button {
+    border: 0; background: transparent; padding: 6px 12px; border-radius: 999px;
+    font: 500 13px var(--sans); letter-spacing: 0.04em; color: var(--muted);
+    cursor: pointer; transition: background .2s, color .2s;
+  }
+  .lang-switch button.is-active { background: var(--paper); color: var(--ink); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 22px; border-radius: 999px;
+    font: 500 15px var(--sans);
+    cursor: pointer; border: 1px solid transparent;
+    transition: background .2s, color .2s, transform .15s, box-shadow .2s;
+  }
+  .btn.primary { background: var(--eucalyptus); color: var(--paper); }
+  .btn.primary:hover { background: var(--eucalyptus-deep); transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(61, 90, 69, 0.4); }
+  .btn.soft { background: var(--paper); color: var(--ink); border-color: var(--line); }
+  .btn.soft:hover { border-color: var(--ink); }
+
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero {
+    padding: 60px var(--pad-x) 80px;
+    max-width: 1300px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center;
+  }
+  .hero .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 14px; border-radius: 999px;
+    background: var(--bg-2); font-size: 13.5px; color: var(--ink-2); margin-bottom: 28px;
+  }
+  .hero .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--eucalyptus); }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(56px, 7vw, 100px);
+    line-height: 1.0;
+    letter-spacing: -0.015em;
+    margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: italic; color: var(--eucalyptus); font-weight: 400; }
+  .hero p.lede {
+    font-size: 19px; color: var(--ink-2);
+    max-width: 480px; margin-bottom: 36px;
+  }
+  .hero .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .hero .footnote {
+    display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--muted);
+    margin-top: 32px;
+  }
+  .hero .footnote .avatars { display: flex; }
+  .hero .footnote .avatars > span {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--sand); border: 2px solid var(--bg);
+    margin-left: -10px;
+    font-family: var(--serif); font-size: 14px; font-weight: 500;
+    display: grid; place-items: center; color: var(--sand-deep);
+  }
+  .hero .footnote .avatars > span:first-child { margin-left: 0; background: var(--eucalyptus); color: var(--paper); }
+  .hero .footnote .avatars > span:nth-child(2) { background: var(--sand); color: var(--sand-deep); }
+  .hero .footnote .avatars > span:nth-child(3) { background: var(--bg-3); color: var(--ink); }
+
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 4 / 5;
+  }
+  .hero-visual .main-img {
+    width: 100%; height: 100%;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg-2);
+  }
+  .hero-visual .main-img image-slot { width: 100%; height: 100%; }
+  .hero-visual .blob {
+    position: absolute; top: -24px; right: -24px;
+    width: 140px; height: 140px;
+    background: var(--sand);
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    z-index: -1;
+  }
+  .hero-visual .blob.two {
+    top: auto; right: auto; bottom: -32px; left: -32px;
+    width: 110px; height: 110px;
+    background: var(--bg-3);
+    border-radius: 45% 55% 40% 60% / 60% 45% 55% 40%;
+  }
+  .hero-visual .card {
+    position: absolute;
+    background: var(--paper);
+    padding: 14px 18px;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px -10px rgba(37, 39, 31, 0.15);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-visual .card.c1 { bottom: 24px; left: -24px; }
+  .hero-visual .card.c1 .leaf {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(92, 122, 100, 0.15); color: var(--eucalyptus);
+    display: grid; place-items: center;
+  }
+  .hero-visual .card.c1 .txt { font-size: 13px; line-height: 1.3; }
+  .hero-visual .card.c1 .txt strong { display: block; font-weight: 600; }
+  .hero-visual .card.c1 .txt small { color: var(--muted); }
+
+  /* ── Section style ──────────────────────────────────── */
+  section { padding: 110px 0; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--eucalyptus); font-family: var(--serif); font-style: italic;
+    font-size: 22px; font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .eyebrow::before {
+    content: ""; width: 30px; height: 1px; background: var(--eucalyptus);
+  }
+  h2.section-title {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(42px, 5.2vw, 76px);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+  h2.section-title em { font-style: italic; color: var(--eucalyptus); font-weight: 400; }
+  .section-sub { color: var(--ink-2); font-size: 17px; max-width: 580px; margin-bottom: 56px; }
+
+  /* ── Services ───────────────────────────────────────── */
+  .services-bg { background: var(--bg-2); border-radius: var(--r-lg); margin: 0 var(--pad-x); padding: 100px var(--pad-x); }
+  .services-bg.container { max-width: calc(1300px - var(--pad-x) * 2); }
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .service-card {
+    background: var(--paper);
+    border-radius: var(--r);
+    padding: 36px 36px 32px;
+    display: flex; flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -16px rgba(37, 39, 31, 0.15); }
+  .service-card .header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px; margin-bottom: 16px;
+  }
+  .service-card .leaf {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(92, 122, 100, 0.12); color: var(--eucalyptus);
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .service-card .num {
+    font-family: var(--serif); font-style: italic; color: var(--muted);
+    font-size: 19px; margin-top: 8px;
+  }
+  .service-card h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 30px; line-height: 1.05; letter-spacing: -0.01em;
+    margin: 0 0 12px;
+  }
+  .service-card p.desc { color: var(--ink-2); font-size: 15.5px; margin-bottom: 24px; flex: 1; }
+  .service-card .price-block {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-top: 22px; border-top: 1px dashed var(--line);
+  }
+  .service-card .price {
+    font-family: var(--serif); font-size: 30px; font-weight: 500; color: var(--eucalyptus-deep);
+  }
+  .service-card .price small {
+    font: 400 13px var(--sans); color: var(--muted); margin-left: 4px;
+  }
+  .service-card a.more {
+    font-size: 14px; color: var(--ink); font-weight: 500;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: gap .2s;
+  }
+  .service-card a.more:hover { gap: 10px; color: var(--eucalyptus); }
+
+  /* ── Family / About ─────────────────────────────────── */
+  .family { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; }
+  .family-img-wrap {
+    position: relative;
+    aspect-ratio: 4 / 5;
+  }
+  .family-img-wrap .ph {
+    width: 100%; height: 100%; border-radius: var(--r-lg); overflow: hidden; background: var(--bg-2);
+  }
+  .family-img-wrap .ph image-slot { width: 100%; height: 100%; }
+  .family-img-wrap .quote-card {
+    position: absolute;
+    bottom: -36px; right: -28px;
+    background: var(--paper);
+    padding: 28px 32px;
+    border-radius: 24px;
+    max-width: 280px;
+    box-shadow: 0 30px 60px -20px rgba(37, 39, 31, 0.2);
+  }
+  .family-img-wrap .quote-card .q {
+    font-family: var(--serif); font-size: 22px; font-style: italic;
+    line-height: 1.25; margin-bottom: 14px; color: var(--ink);
+  }
+  .family-img-wrap .quote-card .by { font-size: 13px; color: var(--muted); }
+  .family-img-wrap .quote-card .by strong { color: var(--ink); display: block; font-weight: 500; }
+  .family .body p {
+    font-size: 18px; color: var(--ink-2); margin-bottom: 22px;
+  }
+  .family .body p:first-of-type::first-letter {
+    font-family: var(--serif); font-size: 64px; font-weight: 500; float: left;
+    line-height: 0.9; padding: 8px 14px 0 0; color: var(--eucalyptus);
+  }
+  .family .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-top: 36px; padding-top: 36px; border-top: 1px solid var(--line);
+  }
+  .family .stats .n {
+    font-family: var(--serif); font-size: 44px; font-weight: 500; line-height: 1; color: var(--eucalyptus-deep);
+    letter-spacing: -0.02em;
+  }
+  .family .stats .l { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+
+  /* ── Testimonials ───────────────────────────────────── */
+  .testimonials-section { background: var(--eucalyptus-deep); color: var(--paper); }
+  .testimonials-section .eyebrow { color: var(--sand); }
+  .testimonials-section .eyebrow::before { background: var(--sand); }
+  .testimonials-section h2.section-title { color: var(--paper); }
+  .testimonials-section h2.section-title em { color: var(--sand); }
+  .testimonials-section .section-sub { color: rgba(255,255,255,0.72); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .testimonial {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 36px 32px;
+    border-radius: var(--r);
+    display: flex; flex-direction: column;
+  }
+  .testimonial .stars { color: var(--sand); letter-spacing: 3px; font-size: 14px; margin-bottom: 18px; }
+  .testimonial blockquote {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 24px; line-height: 1.3; letter-spacing: -0.005em;
+    margin-bottom: 28px; flex: 1; font-style: italic;
+  }
+  .testimonial .who { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.12); }
+  .testimonial .who .av {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--sand); color: var(--eucalyptus-deep);
+    display: grid; place-items: center;
+    font-family: var(--serif); font-weight: 500; font-size: 18px;
+  }
+  .testimonial .who .name { font-size: 15px; font-weight: 500; }
+  .testimonial .who .loc { font-size: 13.5px; color: rgba(255,255,255,0.65); }
+
+  /* ── Area ───────────────────────────────────────────── */
+  .area { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: start; }
+  .area-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .area-grid .nbh {
+    background: var(--paper);
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 15px;
+    display: flex; align-items: center; gap: 10px;
+    transition: transform .2s, box-shadow .2s, background .2s;
+    cursor: default;
+  }
+  .area-grid .nbh::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--eucalyptus); flex-shrink: 0;
+  }
+  .area-grid .nbh:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -10px rgba(37, 39, 31, 0.15); }
+  .area-side {
+    background: var(--bg-2);
+    padding: 36px;
+    border-radius: var(--r-lg);
+  }
+  .area-side h4 { font-family: var(--serif); font-size: 28px; font-weight: 500; margin-bottom: 14px; }
+  .area-side p { color: var(--ink-2); font-size: 15.5px; margin-bottom: 28px; }
+  .area-side .row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 16px 0; border-top: 1px solid var(--line);
+  }
+  .area-side .row:first-of-type { border-top: 0; padding-top: 0; }
+  .area-side .row .l { font-size: 14.5px; color: var(--ink-2); }
+  .area-side .row .v { font-family: var(--serif); font-size: 22px; color: var(--eucalyptus-deep); font-weight: 500; }
+
+  /* ── Booking ────────────────────────────────────────── */
+  .book-section { background: var(--bg-2); }
+  .book { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start; }
+  .book-side h3 { font-family: var(--serif); font-size: 32px; font-weight: 500; margin-bottom: 12px; line-height: 1.1; }
+  .book-side p { color: var(--ink-2); margin-bottom: 28px; max-width: 320px; }
+  .book-side .channel {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 0; border-top: 1px solid var(--line);
+  }
+  .book-side .channel:last-of-type { border-bottom: 1px solid var(--line); }
+  .book-side .channel .ico {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--paper); color: var(--eucalyptus);
+    display: grid; place-items: center; font-size: 16px;
+  }
+  .book-side .channel .lbl { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .book-side .channel .val { font-family: var(--serif); font-size: 22px; font-weight: 500; margin-top: 2px; }
+  form.book-form {
+    background: var(--paper);
+    border-radius: var(--r-lg);
+    padding: 40px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+    box-shadow: 0 30px 60px -30px rgba(37, 39, 31, 0.15);
+  }
+  form.book-form .field { display: flex; flex-direction: column; gap: 8px; }
+  form.book-form .field.full { grid-column: 1 / -1; }
+  form.book-form label { font-size: 13px; color: var(--ink-2); font-weight: 500; }
+  form.book-form input,
+  form.book-form select,
+  form.book-form textarea {
+    background: var(--bg);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 13px 16px;
+    font: 400 15.5px var(--sans);
+    color: var(--ink);
+    transition: border-color .2s, background .2s;
+  }
+  form.book-form textarea { resize: vertical; min-height: 90px; }
+  form.book-form input:focus,
+  form.book-form select:focus,
+  form.book-form textarea:focus {
+    outline: 0; border-color: var(--eucalyptus); background: var(--paper);
+  }
+  form.book-form .submit-row { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  form.book-form .submit-row small { color: var(--muted); font-size: 13.5px; font-style: italic; font-family: var(--serif); }
+  form.book-form button {
+    background: var(--eucalyptus); color: var(--paper);
+    border: 0; padding: 14px 24px; border-radius: 999px;
+    font: 500 15px var(--sans);
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+  }
+  form.book-form button:hover { background: var(--eucalyptus-deep); transform: translateY(-1px); }
+
+  /* ── Footer ─────────────────────────────────────────── */
+  footer.foot { padding: 80px var(--pad-x) 40px; background: var(--bg-2); }
+  .foot-inner { max-width: 1300px; margin: 0 auto; }
+  .foot-cta {
+    background: var(--paper);
+    border-radius: var(--r-lg);
+    padding: 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+    margin-bottom: 60px;
+  }
+  .foot-cta h3 { font-family: var(--serif); font-size: 34px; font-weight: 500; max-width: 540px; line-height: 1.1; }
+  .foot-cta h3 em { font-style: italic; color: var(--eucalyptus); }
+  .foot-base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; color: var(--muted); font-size: 13.5px; padding-top: 32px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 1000px) {
+    .hero, .area, .book, .family { grid-template-columns: 1fr; }
+    .services-grid, .area-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .services-bg { margin: 0 12px; padding: 60px 28px; }
+    .family .stats { grid-template-columns: 1fr 1fr; }
+    nav.primary { display: none; }
+    form.book-form { grid-template-columns: 1fr; padding: 28px; }
+    .family-img-wrap .quote-card { right: 16px; bottom: -20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Header ═══ -->
+<header class="top">
+  <div class="top-inner">
+    <a href="#" class="brand">
+      <span class="mark"><span>F</span></span>
+      <span>Family Cleaning</span>
+    </a>
+    <nav class="primary">
+      <a href="#services" data-ro="Servicii" data-en="Services">Servicii</a>
+      <a href="#family" data-ro="Familia" data-en="The family">Familia</a>
+      <a href="#testimonials" data-ro="Recenzii" data-en="Reviews">Recenzii</a>
+      <a href="#area" data-ro="Zone" data-en="Areas">Zone</a>
+      <a href="#book" data-ro="Rezervare" data-en="Booking">Rezervare</a>
+    </nav>
+    <div class="top-actions">
+      <div class="lang-switch">
+        <button data-lang-toggle="ro" type="button">RO</button>
+        <button data-lang-toggle="en" type="button">EN</button>
+      </div>
+      <a href="#book" class="btn primary">
+        <span data-ro="Rezervă acum" data-en="Book now">Rezervă acum</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+  <div>
+    <div class="pill">
+      <span class="dot"></span>
+      <span data-ro="Curățenie făcută cu grijă, ca acasă" data-en="Cleaning done with care, like at home">Curățenie făcută cu grijă, ca acasă</span>
+    </div>
+    <h1 data-ro-html="Casa ta,<br/>tratată ca <em>a noastră</em>." data-en-html="Your home,<br/>treated like <em>ours</em>.">Casa ta,<br/>tratată ca <em>a noastră</em>.</h1>
+    <p class="lede" data-ro="Suntem o echipă mică, atentă, care îngrijește casele familiilor din București de peste opt ani. Produse blânde, oameni de încredere, fără surprize." data-en="A small, attentive team that has looked after Bucharest homes for over eight years. Gentle products, trustworthy people, no surprises.">Suntem o echipă mică, atentă, care îngrijește casele familiilor din București de peste opt ani. Produse blânde, oameni de încredere, fără surprize.</p>
+    <div class="cta-row">
+      <a href="#book" class="btn primary">
+        <span data-ro="Rezervă o vizită" data-en="Book a visit">Rezervă o vizită</span>
+        <span>→</span>
+      </a>
+      <a href="#services" class="btn soft" data-ro="Vezi serviciile" data-en="See services">Vezi serviciile</a>
+    </div>
+    <div class="footnote">
+      <div class="avatars">
+        <span>F</span><span>A</span><span>M</span>
+      </div>
+      <span data-ro="Aceeași echipă mică la fiecare vizită — Ana, Maria, Daniela." data-en="The same small team every visit — Ana, Maria, Daniela.">Aceeași echipă mică la fiecare vizită — Ana, Maria, Daniela.</span>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="blob"></div>
+    <div class="blob two"></div>
+    <div class="main-img">
+      <image-slot id="d3-hero" shape="rect" placeholder="Foto principală — interior cald, luminat natural / Hero photo — warm, naturally-lit interior"></image-slot>
+    </div>
+    <div class="card c1">
+      <div class="leaf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 5-9 13-12-1 9-4 14-6 16"/><path d="M2 22c1-5 4-9 9-12"/></svg></div>
+      <div class="txt">
+        <strong data-ro="Produse blânde" data-en="Gentle products">Produse blânde</strong>
+        <small data-ro="sigure pentru copii și animale" data-en="safe for kids and pets">sigure pentru copii și animale</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Services ═══ -->
+<section id="services">
+  <div class="services-bg container">
+    <div class="eyebrow" data-ro="Servicii & prețuri" data-en="Services & pricing">Servicii & prețuri</div>
+    <h2 class="section-title" data-ro-html="Patru servicii.<br/>Aceeași <em>grijă</em>." data-en-html="Four services.<br/>The same <em>care</em>.">Patru servicii.<br/>Aceeași <em>grijă</em>.</h2>
+    <p class="section-sub" data-ro="Tarifele includ echipa și produsele și pornesc de la un apartament cu 2 camere. Oferta exactă este gratuită." data-en="Rates include the team and supplies, starting from a 2-bedroom flat. An exact quote is free.">Tarifele includ echipa și produsele și pornesc de la un apartament cu 2 camere. Oferta exactă este gratuită.</p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="header">
+          <div class="leaf"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 4v2M12 18v2M20 12h-2M6 12H4M17 7l-1.5 1.5M8.5 15.5 7 17M17 17l-1.5-1.5M8.5 8.5 7 7"/></svg></div>
+          <span class="num">i.</span>
+        </div>
+        <h3 data-ro="Curățenie regulată" data-en="Regular cleaning">Curățenie regulată</h3>
+        <p class="desc" data-ro="Vizite săptămânale sau bilunare. Aceeași echipă, aceeași casă, fără efort din partea ta." data-en="Weekly or bi-weekly visits. The same team, the same home, zero effort from you.">Vizite săptămânale sau bilunare. Aceeași echipă, aceeași casă, fără efort din partea ta.</p>
+        <div class="price-block">
+          <div class="price">de la 220 lei<small data-ro="/ vizită" data-en="/ visit">/ vizită</small></div>
+          <a href="#book" class="more"><span data-ro="Detalii" data-en="Details">Detalii</span> →</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="header">
+          <div class="leaf"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0"/><path d="M8 12l3 3 5-6"/></svg></div>
+          <span class="num">ii.</span>
+        </div>
+        <h3 data-ro="Curățenie generală" data-en="Deep cleaning">Curățenie generală</h3>
+        <p class="desc" data-ro="În profunzime — în spatele aparatelor, plinte, rosturi, ferestre din interior, decalcifiere completă." data-en="A full reset — behind appliances, baseboards, grout, interior windows, complete de-scaling.">În profunzime — în spatele aparatelor, plinte, rosturi, ferestre din interior, decalcifiere completă.</p>
+        <div class="price-block">
+          <div class="price">de la 480 lei<small data-ro="/ sesiune" data-en="/ session">/ sesiune</small></div>
+          <a href="#book" class="more"><span data-ro="Detalii" data-en="Details">Detalii</span> →</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="header">
+          <div class="leaf"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M7 8V4h10v4"/><path d="M9 14h6"/></svg></div>
+          <span class="num">iii.</span>
+        </div>
+        <h3 data-ro="Mutare (intrare / ieșire)" data-en="Move-in / move-out">Mutare (intrare / ieșire)</h3>
+        <p class="desc" data-ro="Apartament gol, pregătit pentru un nou capitol. Ne asigurăm că iei garanția înapoi." data-en="An empty flat ready for its next chapter. We make sure you get your deposit back.">Apartament gol, pregătit pentru un nou capitol. Ne asigurăm că iei garanția înapoi.</p>
+        <div class="price-block">
+          <div class="price">de la 650 lei<small data-ro="/ 2 camere" data-en="/ 2-bedroom">/ 2 camere</small></div>
+          <a href="#book" class="more"><span data-ro="Detalii" data-en="Details">Detalii</span> →</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="header">
+          <div class="leaf"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V10l7-6 7 6v10"/><path d="M10 20v-6h4v6"/></svg></div>
+          <span class="num">iv.</span>
+        </div>
+        <h3 data-ro="Post-construcție" data-en="Post-construction">Post-construcție</h3>
+        <p class="desc" data-ro="După renovare — îndepărtăm praful fin, urmele de vopsea și adeziv. Echipament profesional, mai multe etape." data-en="After renovation — fine dust, paint flecks, adhesive residue. Industrial gear, multi-pass.">După renovare — îndepărtăm praful fin, urmele de vopsea și adeziv. Echipament profesional, mai multe etape.</p>
+        <div class="price-block">
+          <div class="price">de la 850 lei<small data-ro="/ deviz" data-en="/ quote">/ deviz</small></div>
+          <a href="#book" class="more"><span data-ro="Detalii" data-en="Details">Detalii</span> →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Family ═══ -->
+<section id="family" class="container">
+  <div class="family">
+    <div class="family-img-wrap">
+      <div class="ph">
+        <image-slot id="d3-family" shape="rect" placeholder="Foto echipa / familie / Team or family photo"></image-slot>
+      </div>
+      <div class="quote-card">
+        <div class="q" data-ro="„O echipă mică, pe care o cunoști pe nume.”" data-en="„A small team, on a first-name basis.”">„O echipă mică, pe care o cunoști pe nume.”</div>
+        <div class="by"><strong>Ioana &amp; Cristian</strong>Fondatori</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="eyebrow" data-ro="Despre noi" data-en="About us">Despre noi</div>
+      <h2 class="section-title" data-ro-html="Construit ca o <em>familie</em>." data-en-html="Built like a <em>family</em>.">Construit ca o <em>familie</em>.</h2>
+      <p data-ro="Family Cleaning a început în 2018, când Ioana a curățat primul apartament — al unei vecine din Floreasca. Opt ani mai târziu, suntem o echipă mică de șase oameni, toți cu pregătire formală, toți rămași cu noi de la început." data-en="Family Cleaning started in 2018, when Ioana cleaned the first flat — for a neighbor in Floreasca. Eight years on, we're a small team of six, all formally trained, all with us from the start.">Family Cleaning a început în 2018, când Ioana a curățat primul apartament — al unei vecine din Floreasca. Opt ani mai târziu, suntem o echipă mică de șase oameni, toți cu pregătire formală, toți rămași cu noi de la început.</p>
+      <p data-ro="Nu facem volum. Acceptăm doar atâtea case câte putem îngriji cu atenție. Asta înseamnă aceeași echipă la tine, săptămână de săptămână — oameni care învață rapid ce iubești și ce te enervează." data-en="We don't chase volume. We take on only as many homes as we can care for properly. That means the same team at your place, week after week — people who learn quickly what you love and what bugs you.">Nu facem volum. Acceptăm doar atâtea case câte putem îngriji cu atenție. Asta înseamnă aceeași echipă la tine, săptămână de săptămână — oameni care învață rapid ce iubești și ce te enervează.</p>
+      <div class="stats">
+        <div>
+          <div class="n">8 ani</div>
+          <div class="l" data-ro="în București" data-en="in Bucharest">în București</div>
+        </div>
+        <div>
+          <div class="n">6</div>
+          <div class="l" data-ro="oameni în echipă" data-en="team members">oameni în echipă</div>
+        </div>
+        <div>
+          <div class="n">1,400+</div>
+          <div class="l" data-ro="case curățate" data-en="homes cleaned">case curățate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Testimonials ═══ -->
+<section id="testimonials" class="testimonials-section">
+  <div class="container">
+    <div class="eyebrow" data-ro="Recenzii" data-en="Reviews">Recenzii</div>
+    <h2 class="section-title" data-ro-html="Familii care ne <em>recomandă</em>." data-en-html="Families who <em>recommend</em> us.">Familii care ne <em>recomandă</em>.</h2>
+    <p class="section-sub" data-ro="Recenzii verificate de la clienții noștri din Floreasca, Pipera, Aviatorilor și împrejurimi." data-en="Verified reviews from clients across Floreasca, Pipera, Aviatorilor and around.">Recenzii verificate de la clienții noștri din Floreasca, Pipera, Aviatorilor și împrejurimi.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote data-ro="„Au transformat apartamentul nostru după renovare. Detaliile pe care le-au prins — colțurile, ferestrele, dulapurile — chiar fac diferența.”" data-en="„They transformed our flat after renovation. The little things they catch — corners, windows, inside the cabinets — really make the difference.”">„Au transformat apartamentul nostru după renovare. Detaliile pe care le-au prins — colțurile, ferestrele, dulapurile — chiar fac diferența.”</blockquote>
+        <div class="who">
+          <span class="av">EM</span>
+          <div>
+            <div class="name">Elena Marinescu</div>
+            <div class="loc">Floreasca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote data-ro="„Vin la noi de doi ani, la două săptămâni. Aceeași echipă de fiecare dată — Andra și Maria sunt parte din familie acum.”" data-en="„They've been with us for two years, every two weeks. Same team every time — Andra and Maria feel like family now.”">„Vin la noi de doi ani, la două săptămâni. Aceeași echipă de fiecare dată — Andra și Maria sunt parte din familie acum.”</blockquote>
+        <div class="who">
+          <span class="av">AP</span>
+          <div>
+            <div class="name">Andrei Popescu</div>
+            <div class="loc">Primăverii</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote data-ro="„Produse sigure pentru copilul nostru de 2 ani, fără mirosuri agresive. Și e o ușurare să ne întoarcem acasă într-o casă care doar… miroase a curat.”" data-en="„Safe products for our 2-year-old, no harsh smells. And it's such a relief to come home to a place that just… smells clean.”">„Produse sigure pentru copilul nostru de 2 ani, fără mirosuri agresive. Și e o ușurare să ne întoarcem acasă într-o casă care doar… miroase a curat.”</blockquote>
+        <div class="who">
+          <span class="av">DI</span>
+          <div>
+            <div class="name">Diana Ionescu</div>
+            <div class="loc">Pipera</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Area ═══ -->
+<section id="area" class="container">
+  <div class="eyebrow" data-ro="Zone deservite" data-en="Service area">Zone deservite</div>
+  <h2 class="section-title" data-ro-html="București și <em>împrejurimi</em>." data-en-html="Bucharest &amp; <em>surroundings</em>.">București și <em>împrejurimi</em>.</h2>
+  <p class="section-sub" data-ro="Acoperim tot sectorul 1 și 2, plus zonele rezidențiale din apropiere. Deplasare gratuită până la 15 km de Piața Romană." data-en="We cover Sectors 1 and 2 in full, plus nearby residential areas. Free travel within 15 km of Piața Romană.">Acoperim tot sectorul 1 și 2, plus zonele rezidențiale din apropiere. Deplasare gratuită până la 15 km de Piața Romană.</p>
+
+  <div class="area">
+    <div class="area-grid">
+      <div class="nbh">Aviatorilor</div>
+      <div class="nbh">Băneasa</div>
+      <div class="nbh">Cotroceni</div>
+      <div class="nbh">Dorobanți</div>
+      <div class="nbh">Floreasca</div>
+      <div class="nbh">Herăstrău</div>
+      <div class="nbh">Pipera</div>
+      <div class="nbh">Primăverii</div>
+      <div class="nbh">Romană</div>
+      <div class="nbh">Tineretului</div>
+      <div class="nbh">Universitate</div>
+      <div class="nbh">Vitan</div>
+      <div class="nbh">Otopeni</div>
+      <div class="nbh">Voluntari</div>
+      <div class="nbh">Tunari</div>
+    </div>
+
+    <div class="area-side">
+      <h4 data-ro="Programul nostru" data-en="Our schedule">Programul nostru</h4>
+      <p data-ro="Răspundem rapid și venim la programul tău, nu invers. Sâmbăta este la cerere." data-en="We respond quickly and come on your schedule, not ours. Saturdays on request.">Răspundem rapid și venim la programul tău, nu invers. Sâmbăta este la cerere.</p>
+      <div class="row"><span class="l" data-ro="Luni – Vineri" data-en="Mon – Fri">Luni – Vineri</span><span class="v">08 – 20</span></div>
+      <div class="row"><span class="l" data-ro="Sâmbătă" data-en="Saturday">Sâmbătă</span><span class="v">09 – 16</span></div>
+      <div class="row"><span class="l" data-ro="Rază de deplasare" data-en="Travel radius">Rază de deplasare</span><span class="v">15 km</span></div>
+      <div class="row"><span class="l" data-ro="Timp de răspuns" data-en="Response time">Timp de răspuns</span><span class="v">&lt; 2h</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Booking ═══ -->
+<section id="book" class="book-section">
+  <div class="container">
+    <div class="eyebrow" data-ro="Rezervare" data-en="Booking">Rezervare</div>
+    <h2 class="section-title" data-ro-html="Rezervă o vizită <em>fără bătăi de cap</em>." data-en-html="Book a visit, <em>no hassle</em>.">Rezervă o vizită <em>fără bătăi de cap</em>.</h2>
+    <p class="section-sub" data-ro="Trimite formularul și te contactăm în maxim 2 ore pentru a confirma data și prețul." data-en="Send the form and we'll reach out within 2 hours to confirm date and price.">Trimite formularul și te contactăm în maxim 2 ore pentru a confirma data și prețul.</p>
+
+    <div class="book">
+      <div class="book-side">
+        <h3 data-ro="Sau sună-ne direct" data-en="Or call us directly">Sau sună-ne direct</h3>
+        <p data-ro="Suntem aici de luni până sâmbătă, între 08:00 și 20:00." data-en="Mon–Sat, 8 AM to 8 PM.">Suntem aici de luni până sâmbătă, între 08:00 și 20:00.</p>
+        <div class="channel">
+          <span class="ico">☎</span>
+          <div>
+            <div class="lbl" data-ro="Telefon" data-en="Phone">Telefon</div>
+            <div class="val">+40 723 000 000</div>
+          </div>
+        </div>
+        <div class="channel">
+          <span class="ico">✉</span>
+          <div>
+            <div class="lbl">Email</div>
+            <div class="val">hello@familycleaning.ro</div>
+          </div>
+        </div>
+        <div class="channel">
+          <span class="ico">⌖</span>
+          <div>
+            <div class="lbl" data-ro="Adresă" data-en="Address">Adresă</div>
+            <div class="val">Calea Floreasca 169</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="book-form" onsubmit="event.preventDefault(); alert(document.documentElement.lang==='ro' ? 'Mulțumim! Te contactăm în scurt timp.' : 'Thanks! We will be in touch shortly.');">
+        <div class="field">
+          <label data-ro="Nume" data-en="Name">Nume</label>
+          <input type="text" required placeholder="Ana Popescu" />
+        </div>
+        <div class="field">
+          <label data-ro="Telefon" data-en="Phone">Telefon</label>
+          <input type="tel" required placeholder="+40 723 000 000" />
+        </div>
+        <div class="field">
+          <label data-ro="Serviciu" data-en="Service">Serviciu</label>
+          <select>
+            <option data-ro="Curățenie regulată" data-en="Regular cleaning">Curățenie regulată</option>
+            <option data-ro="Curățenie generală" data-en="Deep cleaning">Curățenie generală</option>
+            <option data-ro="Mutare (intrare / ieșire)" data-en="Move-in / move-out">Mutare (intrare / ieșire)</option>
+            <option data-ro="Post-construcție" data-en="Post-construction">Post-construcție</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-ro="Data preferată" data-en="Preferred date">Data preferată</label>
+          <input type="date" />
+        </div>
+        <div class="field full">
+          <label data-ro="Adresă" data-en="Address">Adresă</label>
+          <input type="text" data-ph-ro="Strada, sector, București" data-ph-en="Street, sector, Bucharest" placeholder="Strada, sector, București" />
+        </div>
+        <div class="field full">
+          <label data-ro="Mesaj (opțional)" data-en="Notes (optional)">Mesaj (opțional)</label>
+          <textarea data-ph-ro="Suprafață, număr de camere, particularități…" data-ph-en="Size, rooms, anything we should know…" placeholder="Suprafață, număr de camere, particularități…"></textarea>
+        </div>
+        <div class="submit-row">
+          <small data-ro="Oferta este gratuită." data-en="The quote is free.">Oferta este gratuită.</small>
+          <button type="submit">
+            <span data-ro="Trimite cererea →" data-en="Send request →">Trimite cererea →</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Footer ═══ -->
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-cta">
+      <h3 data-ro-html="Lasă-ne să avem grijă de casa ta — <em>începe astăzi</em>." data-en-html="Let us look after your home — <em>start today</em>.">Lasă-ne să avem grijă de casa ta — <em>începe astăzi</em>.</h3>
+      <a href="#book" class="btn primary">
+        <span data-ro="Rezervă acum" data-en="Book now">Rezervă acum</span>
+        <span>→</span>
+      </a>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Family Cleaning · București</span>
+      <span data-ro="Construit cu grijă pentru familii." data-en="Built with care for families.">Construit cu grijă pentru familii.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared/i18n.js"></script>
+
+<style id="print-overrides">
+  @page { size: A4; margin: 10mm 8mm; }
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    html, body { background: var(--bg) !important; }
+    header.top { position: static !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    .lang-switch, .top-actions .btn { display: none !important; }
+    .top-inner { padding: 12px 24px !important; }
+    section { padding: 28px 0 !important; page-break-inside: avoid; break-inside: avoid; }
+    .hero { padding: 28px 24px 32px !important; page-break-after: always; }
+    /* keep cards/items together */
+    .service, .service-card, .testimonial, .process-step, .quote-card, .area-side, form.book-form, .channel { page-break-inside: avoid; break-inside: avoid; }
+    /* avoid heading orphans */
+    h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+    /* section breaks */
+    #services, #process, #testimonials, #area, #book, #family { page-break-before: always; break-before: page; }
+    /* form */
+    form.book-form button { background: var(--eucalyptus, var(--blue, var(--ink))) !important; color: #fff !important; }
+    /* hide booking submit button noise */
+    /* images / placeholders */
+    image-slot { background: #ece6d6 !important; }
+    /* footer */
+    footer.foot { page-break-inside: avoid; padding: 24px !important; }
+    .foot-cta { padding: 24px !important; }
+    /* hide hover-only or decorative things */
+    .hero-visual .float-card, .hero-visual .card { box-shadow: none !important; }
+    a { color: inherit !important; text-decoration: none !important; }
+  }
+</style>
+<script id="auto-print">
+(async function(){
+  try { await document.fonts.ready; } catch(e){}
+  await new Promise(r => setTimeout(r, 700));
+  window.print();
+})();
+</script>
+
+</body>
+</html>

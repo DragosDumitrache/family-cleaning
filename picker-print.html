@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Family Cleaning — Direction picker (Print)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  :root {
+    --bg: #f6f4ef;
+    --paper: #ffffff;
+    --ink: #1f1f22;
+    --ink-2: #4a4a52;
+    --muted: #8a8a90;
+    --line: #e3dfd1;
+    --accent: #8e6f47;
+    --sans: "Inter Tight", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --serif: "Instrument Serif", Georgia, serif;
+  }
+
+  html, body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* A4 landscape: 297mm × 210mm */
+  .sheet {
+    width: 297mm; height: 210mm;
+    padding: 12mm 14mm;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .sheet:last-of-type { page-break-after: auto; }
+
+  /* ── Header ─── */
+  .head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 6mm;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 7mm;
+    flex-shrink: 0;
+  }
+  .brand { font-family: var(--serif); font-size: 22px; }
+  .brand .sep { color: var(--accent); margin: 0 6px; }
+  .brand .sub { color: var(--muted); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-family: var(--sans); margin-left: 4px; }
+  .meta-pill {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px;
+  }
+
+  /* ── Intro row ─── */
+  .intro {
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: 14mm; align-items: end;
+    margin-bottom: 8mm;
+    flex-shrink: 0;
+  }
+  .intro .eyebrow {
+    font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .intro h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 38px; line-height: 1.02; letter-spacing: -0.012em;
+  }
+  .intro h1 em { font-style: italic; color: var(--accent); }
+  .intro p { color: var(--ink-2); font-size: 11.5px; line-height: 1.55; max-width: 95%; }
+
+  /* ── Card grid ─── */
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 7mm;
+    flex: 1;
+    min-height: 0;
+  }
+  .card {
+    background: var(--paper);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column;
+  }
+  .preview {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .preview img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  .meta {
+    padding: 5mm 5mm 5mm;
+    display: flex; flex-direction: column; gap: 3mm;
+    flex: 1;
+  }
+  .meta .head-row {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+  }
+  .meta .num {
+    font-family: var(--serif); font-style: italic;
+    color: var(--accent); font-size: 11px;
+    margin-bottom: 2px;
+  }
+  .meta h3 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 22px; line-height: 1.05; letter-spacing: -0.005em;
+  }
+  .swatch-row { display: flex; gap: 4px; flex-shrink: 0; }
+  .swatch {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .desc {
+    color: var(--ink-2); font-size: 10.5px; line-height: 1.5;
+    flex: 1;
+  }
+  .specs {
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    padding-top: 3mm; border-top: 1px solid var(--line);
+    font-size: 9.5px; color: var(--muted);
+  }
+  .specs span { display: inline-flex; align-items: center; gap: 5px; }
+  .specs span::before {
+    content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+  }
+
+  /* ── Footer note ─── */
+  .footer {
+    margin-top: 6mm;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 4mm;
+    border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 10px;
+    flex-shrink: 0;
+  }
+  .footer .pick {
+    color: var(--ink); font-family: var(--serif); font-style: italic; font-size: 14px;
+  }
+  .footer .pick em { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- Header -->
+  <div class="head">
+    <div class="brand">
+      Family Cleaning<span class="sep"> · </span><span class="sub">Studio</span>
+    </div>
+    <div class="meta-pill">3 directions · v1 · May 2026</div>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro">
+    <div>
+      <div class="eyebrow">Brief · website design</div>
+      <h1>Three takes on a <em>simple, fresh</em> home-cleaning website.</h1>
+    </div>
+    <p>Each direction is a complete one-page site — header, hero, services with pricing, testimonials, service area, and a booking form — with bilingual RO / EN content and image placeholders for your own photos. Pick a favorite and we'll refine it.</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="grid">
+
+    <!-- D1 -->
+    <div class="card">
+      <div class="preview">
+        <img src="previews/d1-editorial.png" alt="Direction 1 — Editorial premium" />
+      </div>
+      <div class="meta">
+        <div class="head-row">
+          <div>
+            <div class="num">— Direction 01</div>
+            <h3>Editorial premium</h3>
+          </div>
+          <div class="swatch-row">
+            <span class="swatch" style="background:#f4f0e6"></span>
+            <span class="swatch" style="background:#3b4e3a"></span>
+            <span class="swatch" style="background:#1a1d18"></span>
+          </div>
+        </div>
+        <div class="desc">Warm cream and forest sage, Instrument Serif headlines, generous whitespace. Reads like a quiet hotel brand — for clients who value calm and craft.</div>
+        <div class="specs">
+          <span>Cream + sage</span>
+          <span>Serif / sans pair</span>
+          <span>Editorial layout</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- D2 -->
+    <div class="card">
+      <div class="preview">
+        <img src="previews/d2-crisp.png" alt="Direction 2 — Crisp modern" />
+      </div>
+      <div class="meta">
+        <div class="head-row">
+          <div>
+            <div class="num">— Direction 02</div>
+            <h3>Crisp modern</h3>
+          </div>
+          <div class="swatch-row">
+            <span class="swatch" style="background:#ffffff"></span>
+            <span class="swatch" style="background:#1e4a7a"></span>
+            <span class="swatch" style="background:#0e1a26"></span>
+          </div>
+        </div>
+        <div class="desc">Pure white, deep slate blue, Space Grotesk throughout. Tight grid, structured cards, float-card details. Confident and professional — feels like a SaaS-quality service brand.</div>
+        <div class="specs">
+          <span>White + slate blue</span>
+          <span>Geometric sans</span>
+          <span>Card-based</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- D3 -->
+    <div class="card">
+      <div class="preview">
+        <img src="previews/d3-natural.png" alt="Direction 3 — Soft natural" />
+      </div>
+      <div class="meta">
+        <div class="head-row">
+          <div>
+            <div class="num">— Direction 03 · selected</div>
+            <h3>Soft natural</h3>
+          </div>
+          <div class="swatch-row">
+            <span class="swatch" style="background:#faf7f0"></span>
+            <span class="swatch" style="background:#5c7a64"></span>
+            <span class="swatch" style="background:#d9c3a0"></span>
+          </div>
+        </div>
+        <div class="desc">Eggshell with eucalyptus and warm sand, Cormorant Garamond italics, rounded everything. Warm, human, family-forward — leans into the "family" in your name without being twee.</div>
+        <div class="specs">
+          <span>Eggshell + eucalyptus</span>
+          <span>Garamond / DM Sans</span>
+          <span>Rounded · warm</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Family Cleaning · Bucharest &amp; surroundings · familycleaning.ro</span>
+    <span class="pick">Selected direction → <em>Soft natural</em></span>
+  </div>
+
+</div>
+
+<script>
+  // Auto-print when fonts and images are loaded
+  (async function () {
+    try { await document.fonts.ready; } catch (e) {}
+    const imgs = Array.from(document.images);
+    await Promise.all(imgs.map(img =>
+      img.complete ? Promise.resolve() : new Promise(res => {
+        img.addEventListener('load', res, { once: true });
+        img.addEventListener('error', res, { once: true });
+      })
+    ));
+    setTimeout(() => window.print(), 500);
+  })();
+</script>
+
+</body>
+</html>
