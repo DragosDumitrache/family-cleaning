@@ -4,284 +4,488 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<title>Family Cleaning — Pick a direction</title>
+<title>Family Cleaning — Curățenie făcută cu grijă, ca acasă</title>
+<meta name="description" content="Family Cleaning — o echipă mică din București care îngrijește casele familiilor de peste opt ani. Produse blânde, oameni de încredere, fără surprize." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --bg: #18181a;
-    --bg-2: #232326;
-    --paper: #fff;
-    --ink: #f4f3f0;
-    --muted: #8a8a90;
-    --line: #2d2d31;
-    --accent: #c8b694;
-    --sans: "Inter Tight", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --serif: "Instrument Serif", Georgia, serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
-  }
-  a { color: inherit; text-decoration: none; }
-
-  .page {
-    max-width: 1400px; margin: 0 auto; padding: 56px 40px 80px;
-  }
-  .top-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 64px;
-  }
-  .brand { font-family: var(--serif); font-size: 26px; letter-spacing: 0.005em; }
-  .brand .dot { color: var(--accent); }
-  .tag {
-    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--muted); padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px;
-  }
-
-  .intro { max-width: 760px; margin-bottom: 72px; }
-  .intro .eyebrow {
-    font-family: var(--serif); font-style: italic; font-size: 21px; color: var(--accent);
-    margin-bottom: 12px;
-  }
-  .intro h1 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(48px, 6vw, 84px); line-height: 1.02; letter-spacing: -0.015em;
-    margin-bottom: 24px;
-  }
-  .intro h1 em { font-style: italic; color: var(--accent); }
-  .intro p { color: var(--muted); font-size: 17px; max-width: 580px; }
-
-  .grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
-  }
-
-  .card {
-    background: var(--bg-2);
-    border-radius: 18px;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    display: flex; flex-direction: column;
-    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-  }
-  .card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.16); box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6); }
-
-  .preview {
-    position: relative; aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background: #fff;
-  }
-  .preview iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 1440px; height: 1080px;
-    border: 0;
-    transform: scale(0.32);
-    transform-origin: top left;
-    pointer-events: none;
-    background: #fff;
-  }
-  .preview .open-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 30%);
-    opacity: 0;
-    transition: opacity .25s;
-    display: flex; align-items: flex-end; justify-content: flex-end;
-    padding: 18px;
-  }
-  .card:hover .preview .open-overlay { opacity: 1; }
-  .preview .open-pill {
-    background: rgba(255,255,255,0.95); color: #1a1a1a;
-    padding: 8px 14px; border-radius: 999px;
-    font-size: 13px; font-weight: 500;
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  .meta { padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
-  .meta .header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .meta .swatch-row { display: flex; gap: 6px; flex-shrink: 0; }
-  .meta .swatch { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
-
-  .meta h3 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: 30px; line-height: 1.1; letter-spacing: -0.005em;
-  }
-  .meta .num {
-    font-family: var(--serif); font-style: italic;
-    color: var(--accent); font-size: 14px;
-    margin-bottom: 4px;
-  }
-  .meta .desc { color: var(--muted); font-size: 14.5px; flex: 1; }
-  .meta .specs {
-    display: flex; gap: 14px; padding-top: 16px; border-top: 1px solid var(--line);
-    font-size: 12px; color: var(--muted); flex-wrap: wrap;
-  }
-  .meta .specs span { display: inline-flex; align-items: center; gap: 6px; }
-  .meta .specs span::before {
-    content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
-  }
-
-  .meta .actions { display: flex; gap: 8px; margin-top: 4px; }
-  .meta .actions a {
-    flex: 1;
-    padding: 11px 14px; border-radius: 10px;
-    font-size: 14px; font-weight: 500;
-    text-align: center;
-    transition: background .2s, color .2s;
-  }
-  .meta .actions a.primary { background: var(--paper); color: #18181a; }
-  .meta .actions a.primary:hover { background: var(--accent); }
-  .meta .actions a.ghost {
-    background: transparent; color: var(--ink); border: 1px solid var(--line);
-  }
-  .meta .actions a.ghost:hover { border-color: rgba(255,255,255,0.3); }
-
-  .footer-note {
-    margin-top: 72px;
-    padding: 36px; border-radius: 16px;
-    background: var(--bg-2); border: 1px solid var(--line);
-    display: flex; gap: 36px; align-items: center; justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  .footer-note h4 {
-    font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.2;
-    max-width: 580px;
-  }
-  .footer-note p { color: var(--muted); font-size: 14.5px; margin-top: 8px; max-width: 580px; }
-
-  @media (max-width: 1000px) {
-    .grid { grid-template-columns: 1fr; }
-    .top-row { flex-direction: column; gap: 16px; align-items: flex-start; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="dist/styles.css" />
 </head>
 <body>
 
-<div class="page">
-  <div class="top-row">
-    <div class="brand">Family Cleaning<span class="dot"> · </span><span style="color: var(--muted); font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; font-family: var(--sans);">Studio</span></div>
-    <span class="tag">3 directions · v1 · May 2026</span>
-  </div>
+<!-- ═══ Header ═══ -->
+<header class="sticky top-0 z-50 backdrop-blur-md backdrop-saturate-150 bg-[rgba(250,247,240,0.88)]">
+  <div class="container-fc flex items-center justify-between py-5">
+    <a href="#" class="flex items-center gap-3 font-serif text-[26px] font-medium tracking-tight">
+      <span class="grid place-items-center size-10 rounded-full bg-eucalyptus text-paper">
+        <img src="assets/logo-monogram.svg" alt="" class="size-6 [filter:brightness(0)_invert(1)]" />
+      </span>
+      <span>Family Cleaning</span>
+    </a>
 
-  <div class="intro">
-    <div class="eyebrow">Brief · website design</div>
-    <h1>Three takes on a <em>simple, fresh</em> home-cleaning website.</h1>
-    <p>Each direction is a complete one-page site — header, hero, services with pricing, testimonials, service area, and a booking form — with bilingual RO/EN content and image placeholders for your own photos. Click into any one to feel it at full size, then we'll refine the favorite.</p>
-  </div>
+    <nav class="hidden lg:flex gap-8 items-center text-[15px] text-ink-2">
+      <a href="#services" class="hover:text-eucalyptus transition-colors" data-ro="Servicii" data-en="Services">Servicii</a>
+      <a href="#family" class="hover:text-eucalyptus transition-colors" data-ro="Familia" data-en="The family">Familia</a>
+      <a href="#testimonials" class="hover:text-eucalyptus transition-colors" data-ro="Recenzii" data-en="Reviews">Recenzii</a>
+      <a href="#area" class="hover:text-eucalyptus transition-colors" data-ro="Zone" data-en="Areas">Zone</a>
+      <a href="#book" class="hover:text-eucalyptus transition-colors" data-ro="Rezervare" data-en="Booking">Rezervare</a>
+    </nav>
 
-  <div class="grid">
-
-    <!-- Direction 1 -->
-    <div class="card">
-      <a href="d1-editorial.html" class="preview">
-        <iframe src="d1-editorial.html" loading="lazy" scrolling="no"></iframe>
-        <div class="open-overlay"><span class="open-pill">Open site →</span></div>
+    <div class="flex items-center gap-4">
+      <div class="lang-switch">
+        <button data-lang-toggle="ro" type="button" aria-pressed="false">RO</button>
+        <button data-lang-toggle="en" type="button" aria-pressed="false">EN</button>
+      </div>
+      <a href="#book" class="btn btn-primary">
+        <span data-ro="Rezervă acum" data-en="Book now">Rezervă acum</span>
       </a>
-      <div class="meta">
-        <div class="header-row">
-          <div>
-            <div class="num">— Direction 01</div>
-            <h3>Editorial premium</h3>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ Hero ═══ -->
+<section class="container-fc grid lg:grid-cols-[1.05fr_1fr] gap-12 items-center pt-16 pb-20 lg:py-20">
+  <div>
+    <div class="pill mb-7">
+      <span class="dot"></span>
+      <span data-ro="Curățenie făcută cu grijă, ca acasă" data-en="Cleaning done with care, like at home">Curățenie făcută cu grijă, ca acasă</span>
+    </div>
+    <h1 class="hero-title mb-7"
+        data-ro-html="Casa ta,<br/>tratată ca <em>a noastră</em>."
+        data-en-html="Your home,<br/>treated like <em>ours</em>.">
+      Casa ta,<br/>tratată ca <em>a noastră</em>.
+    </h1>
+    <p class="text-[19px] text-ink-2 max-w-[480px] mb-9"
+       data-ro="Suntem o echipă mică, atentă, care îngrijește casele familiilor din București de peste opt ani. Produse blânde, oameni de încredere, fără surprize."
+       data-en="A small, attentive team that has looked after Bucharest homes for over eight years. Gentle products, trustworthy people, no surprises.">
+      Suntem o echipă mică, atentă, care îngrijește casele familiilor din București de peste opt ani. Produse blânde, oameni de încredere, fără surprize.
+    </p>
+    <div class="flex gap-3.5 items-center flex-wrap">
+      <a href="#book" class="btn btn-primary">
+        <span data-ro="Rezervă o vizită" data-en="Book a visit">Rezervă o vizită</span>
+        <span aria-hidden="true">→</span>
+      </a>
+      <a href="#services" class="btn btn-soft" data-ro="Vezi serviciile" data-en="See services">Vezi serviciile</a>
+    </div>
+    <div class="flex items-center gap-3.5 text-sm text-muted mt-8">
+      <div class="flex">
+        <span class="grid place-items-center size-8 rounded-full bg-eucalyptus text-paper font-serif text-sm font-medium border-2 border-eggshell">F</span>
+        <span class="grid place-items-center size-8 rounded-full bg-sand text-sand-deep font-serif text-sm font-medium border-2 border-eggshell -ml-2.5">A</span>
+        <span class="grid place-items-center size-8 rounded-full bg-eggshell-3 text-ink font-serif text-sm font-medium border-2 border-eggshell -ml-2.5">M</span>
+      </div>
+      <span data-ro="Aceeași echipă mică la fiecare vizită — Ana, Maria, Daniela." data-en="The same small team every visit — Ana, Maria, Daniela.">Aceeași echipă mică la fiecare vizită — Ana, Maria, Daniela.</span>
+    </div>
+  </div>
+
+  <div class="relative aspect-[4/5]">
+    <span class="blob bg-sand size-36 -top-6 -right-6"></span>
+    <span class="blob blob-alt bg-eggshell-3 size-28 -bottom-8 -left-8"></span>
+    <div class="size-full rounded-[var(--radius-soft-lg)] overflow-hidden bg-eggshell-2">
+      <img src="assets/photos/hero-bedroom.jpg" alt="" class="size-full object-cover" />
+    </div>
+    <div class="float-card bottom-6 -left-6">
+      <span class="leaf-dot-sm">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-5 5-9 13-12-1 9-4 14-6 16"/><path d="M2 22c1-5 4-9 9-12"/></svg>
+      </span>
+      <div class="text-[13px] leading-tight">
+        <strong class="block font-semibold" data-ro="Produse blânde" data-en="Gentle products">Produse blânde</strong>
+        <small class="text-muted" data-ro="sigure pentru copii și animale" data-en="safe for kids and pets">sigure pentru copii și animale</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Services ═══ -->
+<section id="services" class="py-24 lg:py-28">
+  <div class="container-fc">
+    <div class="bg-eggshell-2 rounded-[var(--radius-soft-lg)] p-8 sm:p-12 lg:p-24">
+      <div class="eyebrow mb-4" data-ro="Servicii & prețuri" data-en="Services & pricing">Servicii & prețuri</div>
+      <h2 class="section-title mb-6 max-w-3xl"
+          data-ro-html="Patru servicii.<br/>Aceeași <em>grijă</em>."
+          data-en-html="Four services.<br/>The same <em>care</em>.">
+        Patru servicii.<br/>Aceeași <em>grijă</em>.
+      </h2>
+      <p class="text-[17px] text-ink-2 max-w-xl mb-14"
+         data-ro="Tarifele includ echipa și produsele și pornesc de la un apartament cu 2 camere. Oferta exactă este gratuită."
+         data-en="Rates include the team and supplies, starting from a 2-bedroom flat. An exact quote is free.">
+        Tarifele includ echipa și produsele și pornesc de la un apartament cu 2 camere. Oferta exactă este gratuită.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+
+        <article class="service-card">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <span class="leaf-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 4v2M12 18v2M20 12h-2M6 12H4M17 7l-1.5 1.5M8.5 15.5 7 17M17 17l-1.5-1.5M8.5 8.5 7 7"/></svg>
+            </span>
+            <span class="font-serif italic text-muted text-lg mt-2">i.</span>
           </div>
-          <div class="swatch-row" title="Cream · sage · ink">
-            <span class="swatch" style="background:#f4f0e6"></span>
-            <span class="swatch" style="background:#3b4e3a"></span>
-            <span class="swatch" style="background:#1a1d18"></span>
+          <h3 class="font-serif font-medium text-[30px] leading-tight tracking-tight mb-3" data-ro="Curățenie regulată" data-en="Regular cleaning">Curățenie regulată</h3>
+          <p class="text-ink-2 text-[15.5px] mb-6 flex-1" data-ro="Vizite săptămânale sau bilunare. Aceeași echipă, aceeași casă, fără efort din partea ta." data-en="Weekly or bi-weekly visits. The same team, the same home, zero effort from you.">Vizite săptămânale sau bilunare. Aceeași echipă, aceeași casă, fără efort din partea ta.</p>
+          <div class="price-divider pt-5 flex items-baseline justify-between">
+            <div class="font-serif text-[30px] font-medium text-eucalyptus-deep">
+              de la 220 lei<small class="font-sans font-normal text-[13px] text-muted ml-1" data-ro="/ vizită" data-en="/ visit">/ vizită</small>
+            </div>
+            <a href="#book" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-eucalyptus hover:gap-2.5 transition-all">
+              <span data-ro="Detalii" data-en="Details">Detalii</span> →
+            </a>
           </div>
-        </div>
-        <div class="desc">Warm cream and forest sage, Instrument Serif headlines, generous whitespace. Reads like a quiet hotel brand — for clients who value calm and craft.</div>
-        <div class="specs">
-          <span>Cream + sage</span>
-          <span>Serif / sans pair</span>
-          <span>Editorial layout</span>
-        </div>
-        <div class="actions">
-          <a href="d1-editorial.html" class="primary">Open →</a>
-          <a href="d1-editorial.html" class="ghost">Preview</a>
+        </article>
+
+        <article class="service-card">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <span class="leaf-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0"/><path d="M8 12l3 3 5-6"/></svg>
+            </span>
+            <span class="font-serif italic text-muted text-lg mt-2">ii.</span>
+          </div>
+          <h3 class="font-serif font-medium text-[30px] leading-tight tracking-tight mb-3" data-ro="Curățenie generală" data-en="Deep cleaning">Curățenie generală</h3>
+          <p class="text-ink-2 text-[15.5px] mb-6 flex-1" data-ro="În profunzime — în spatele aparatelor, plinte, rosturi, ferestre din interior, decalcifiere completă." data-en="A full reset — behind appliances, baseboards, grout, interior windows, complete de-scaling.">În profunzime — în spatele aparatelor, plinte, rosturi, ferestre din interior, decalcifiere completă.</p>
+          <div class="price-divider pt-5 flex items-baseline justify-between">
+            <div class="font-serif text-[30px] font-medium text-eucalyptus-deep">
+              de la 480 lei<small class="font-sans font-normal text-[13px] text-muted ml-1" data-ro="/ sesiune" data-en="/ session">/ sesiune</small>
+            </div>
+            <a href="#book" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-eucalyptus hover:gap-2.5 transition-all">
+              <span data-ro="Detalii" data-en="Details">Detalii</span> →
+            </a>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <span class="leaf-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M7 8V4h10v4"/><path d="M9 14h6"/></svg>
+            </span>
+            <span class="font-serif italic text-muted text-lg mt-2">iii.</span>
+          </div>
+          <h3 class="font-serif font-medium text-[30px] leading-tight tracking-tight mb-3" data-ro="Mutare (intrare / ieșire)" data-en="Move-in / move-out">Mutare (intrare / ieșire)</h3>
+          <p class="text-ink-2 text-[15.5px] mb-6 flex-1" data-ro="Apartament gol, pregătit pentru un nou capitol. Ne asigurăm că iei garanția înapoi." data-en="An empty flat ready for its next chapter. We make sure you get your deposit back.">Apartament gol, pregătit pentru un nou capitol. Ne asigurăm că iei garanția înapoi.</p>
+          <div class="price-divider pt-5 flex items-baseline justify-between">
+            <div class="font-serif text-[30px] font-medium text-eucalyptus-deep">
+              de la 650 lei<small class="font-sans font-normal text-[13px] text-muted ml-1" data-ro="/ 2 camere" data-en="/ 2-bedroom">/ 2 camere</small>
+            </div>
+            <a href="#book" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-eucalyptus hover:gap-2.5 transition-all">
+              <span data-ro="Detalii" data-en="Details">Detalii</span> →
+            </a>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <span class="leaf-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M5 20V10l7-6 7 6v10"/><path d="M10 20v-6h4v6"/></svg>
+            </span>
+            <span class="font-serif italic text-muted text-lg mt-2">iv.</span>
+          </div>
+          <h3 class="font-serif font-medium text-[30px] leading-tight tracking-tight mb-3" data-ro="Post-construcție" data-en="Post-construction">Post-construcție</h3>
+          <p class="text-ink-2 text-[15.5px] mb-6 flex-1" data-ro="După renovare — îndepărtăm praful fin, urmele de vopsea și adeziv. Echipament profesional, mai multe etape." data-en="After renovation — fine dust, paint flecks, adhesive residue. Industrial gear, multi-pass.">După renovare — îndepărtăm praful fin, urmele de vopsea și adeziv. Echipament profesional, mai multe etape.</p>
+          <div class="price-divider pt-5 flex items-baseline justify-between">
+            <div class="font-serif text-[30px] font-medium text-eucalyptus-deep">
+              de la 850 lei<small class="font-sans font-normal text-[13px] text-muted ml-1" data-ro="/ deviz" data-en="/ quote">/ deviz</small>
+            </div>
+            <a href="#book" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-eucalyptus hover:gap-2.5 transition-all">
+              <span data-ro="Detalii" data-en="Details">Detalii</span> →
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Family ═══ -->
+<section id="family" class="container-fc py-24 lg:py-28">
+  <div class="grid lg:grid-cols-[1fr_1.1fr] gap-20 items-center">
+    <div class="relative aspect-[4/5]">
+      <div class="size-full rounded-[var(--radius-soft-lg)] overflow-hidden bg-eggshell-2">
+        <img src="assets/photos/team-portrait.jpg" alt="" class="size-full object-cover" />
+      </div>
+      <div class="absolute -bottom-9 right-4 lg:-right-7 bg-paper p-7 rounded-3xl max-w-[280px] shadow-[0_30px_60px_-20px_rgba(37,39,31,0.2)]">
+        <div class="font-serif italic text-[22px] leading-snug mb-3.5 text-ink"
+             data-ro="„O echipă mică, pe care o cunoști pe nume.”"
+             data-en="„A small team, on a first-name basis.”">„O echipă mică, pe care o cunoști pe nume.”</div>
+        <div class="text-[13px] text-muted">
+          <strong class="block font-medium text-ink">Ioana &amp; Cristian</strong>
+          <span data-ro="Fondatori" data-en="Founders">Fondatori</span>
         </div>
       </div>
     </div>
-
-    <!-- Direction 2 -->
-    <div class="card">
-      <a href="d2-crisp.html" class="preview">
-        <iframe src="d2-crisp.html" loading="lazy" scrolling="no"></iframe>
-        <div class="open-overlay"><span class="open-pill">Open site →</span></div>
-      </a>
-      <div class="meta">
-        <div class="header-row">
-          <div>
-            <div class="num">— Direction 02</div>
-            <h3>Crisp modern</h3>
-          </div>
-          <div class="swatch-row" title="White · slate blue · navy">
-            <span class="swatch" style="background:#ffffff"></span>
-            <span class="swatch" style="background:#1e4a7a"></span>
-            <span class="swatch" style="background:#0e1a26"></span>
-          </div>
-        </div>
-        <div class="desc">Pure white, deep slate blue, Space Grotesk throughout. Tight grid, structured cards, float-card details. Confident and professional — feels like a SaaS-quality service brand.</div>
-        <div class="specs">
-          <span>White + slate blue</span>
-          <span>Geometric sans</span>
-          <span>Card-based</span>
-        </div>
-        <div class="actions">
-          <a href="d2-crisp.html" class="primary">Open →</a>
-          <a href="d2-crisp.html" class="ghost">Preview</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Direction 3 -->
-    <div class="card">
-      <a href="d3-natural.html" class="preview">
-        <iframe src="d3-natural.html" loading="lazy" scrolling="no"></iframe>
-        <div class="open-overlay"><span class="open-pill">Open site →</span></div>
-      </a>
-      <div class="meta">
-        <div class="header-row">
-          <div>
-            <div class="num">— Direction 03</div>
-            <h3>Soft natural</h3>
-          </div>
-          <div class="swatch-row" title="Eggshell · eucalyptus · warm sand">
-            <span class="swatch" style="background:#faf7f0"></span>
-            <span class="swatch" style="background:#5c7a64"></span>
-            <span class="swatch" style="background:#d9c3a0"></span>
-          </div>
-        </div>
-        <div class="desc">Eggshell with eucalyptus and warm sand, Cormorant Garamond italics, rounded everything. Warm, human, family-forward — leans into the "family" in your name without being twee.</div>
-        <div class="specs">
-          <span>Eggshell + eucalyptus</span>
-          <span>Garamond / DM Sans</span>
-          <span>Rounded · warm</span>
-        </div>
-        <div class="actions">
-          <a href="d3-natural.html" class="primary">Open →</a>
-          <a href="d3-natural.html" class="ghost">Preview</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-note">
     <div>
-      <h4>Pick a favorite and we'll refine it.</h4>
-      <p>Each direction is fully functional — try the RO / EN toggle in the top right, scroll through, drop your own photos onto the placeholders. Once you pick one, we'll tune copy, swap in real photos, and tighten the details.</p>
-    </div>
-    <div style="display: flex; gap: 10px;">
-      <a href="d1-editorial.html" style="padding: 11px 16px; border-radius: 999px; background: var(--paper); color: #18181a; font-size: 14px; font-weight: 500;">Start with D1 →</a>
+      <div class="eyebrow mb-4" data-ro="Despre noi" data-en="About us">Despre noi</div>
+      <h2 class="section-title mb-6"
+          data-ro-html="Construit ca o <em>familie</em>."
+          data-en-html="Built like a <em>family</em>.">
+        Construit ca o <em>familie</em>.
+      </h2>
+      <p class="text-lg text-ink-2 mb-5 drop-cap"
+         data-ro="Family Cleaning a început în 2018, când Ioana a curățat primul apartament — al unei vecine din Floreasca. Opt ani mai târziu, suntem o echipă mică de șase oameni, toți cu pregătire formală, toți rămași cu noi de la început."
+         data-en="Family Cleaning started in 2018, when Ioana cleaned the first flat — for a neighbor in Floreasca. Eight years on, we're a small team of six, all formally trained, all with us from the start.">
+        Family Cleaning a început în 2018, când Ioana a curățat primul apartament — al unei vecine din Floreasca. Opt ani mai târziu, suntem o echipă mică de șase oameni, toți cu pregătire formală, toți rămași cu noi de la început.
+      </p>
+      <p class="text-lg text-ink-2 mb-5"
+         data-ro="Nu facem volum. Acceptăm doar atâtea case câte putem îngriji cu atenție. Asta înseamnă aceeași echipă la tine, săptămână de săptămână — oameni care învață rapid ce iubești și ce te enervează."
+         data-en="We don't chase volume. We take on only as many homes as we can care for properly. That means the same team at your place, week after week — people who learn quickly what you love and what bugs you.">
+        Nu facem volum. Acceptăm doar atâtea case câte putem îngriji cu atenție. Asta înseamnă aceeași echipă la tine, săptămână de săptămână — oameni care învață rapid ce iubești și ce te enervează.
+      </p>
+      <div class="grid grid-cols-3 gap-6 mt-9 pt-9 border-t border-line">
+        <div>
+          <div class="font-serif font-medium text-[44px] leading-none text-eucalyptus-deep tracking-tight">8 <span class="text-[34px]">ani</span></div>
+          <div class="text-[13.5px] text-muted mt-1" data-ro="în București" data-en="in Bucharest">în București</div>
+        </div>
+        <div>
+          <div class="font-serif font-medium text-[44px] leading-none text-eucalyptus-deep tracking-tight">6</div>
+          <div class="text-[13.5px] text-muted mt-1" data-ro="oameni în echipă" data-en="team members">oameni în echipă</div>
+        </div>
+        <div>
+          <div class="font-serif font-medium text-[44px] leading-none text-eucalyptus-deep tracking-tight">1,400+</div>
+          <div class="text-[13.5px] text-muted mt-1" data-ro="case curățate" data-en="homes cleaned">case curățate</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
+<!-- ═══ Testimonials ═══ -->
+<section id="testimonials" class="bg-eucalyptus-deep text-paper py-24 lg:py-28">
+  <div class="container-fc">
+    <div class="eyebrow !text-sand mb-4 [&::before]:bg-sand" data-ro="Recenzii" data-en="Reviews">Recenzii</div>
+    <h2 class="section-title !text-paper mb-6 [&_em]:!text-sand"
+        data-ro-html="Familii care ne <em>recomandă</em>."
+        data-en-html="Families who <em>recommend</em> us.">
+      Familii care ne <em>recomandă</em>.
+    </h2>
+    <p class="text-[17px] text-white/70 max-w-xl mb-14"
+       data-ro="Recenzii verificate de la clienții noștri din Floreasca, Pipera, Aviatorilor și împrejurimi."
+       data-en="Verified reviews from clients across Floreasca, Pipera, Aviatorilor and around.">
+      Recenzii verificate de la clienții noștri din Floreasca, Pipera, Aviatorilor și împrejurimi.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="testimonial">
+        <div class="text-sand tracking-[3px] text-sm mb-4" aria-label="5 stars">★ ★ ★ ★ ★</div>
+        <blockquote class="font-serif font-normal italic text-2xl leading-snug tracking-tight mb-7 flex-1"
+                    data-ro="„Au transformat apartamentul nostru după renovare. Detaliile pe care le-au prins — colțurile, ferestrele, dulapurile — chiar fac diferența.”"
+                    data-en="„They transformed our flat after renovation. The little things they catch — corners, windows, inside the cabinets — really make the difference.”">
+          „Au transformat apartamentul nostru după renovare. Detaliile pe care le-au prins — colțurile, ferestrele, dulapurile — chiar fac diferența.”
+        </blockquote>
+        <div class="flex items-center gap-3.5 pt-5 border-t border-white/10">
+          <span class="grid place-items-center size-11 rounded-full bg-sand text-eucalyptus-deep font-serif font-medium text-lg">EM</span>
+          <div>
+            <div class="text-[15px] font-medium">Elena Marinescu</div>
+            <div class="text-[13.5px] text-white/65">Floreasca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="text-sand tracking-[3px] text-sm mb-4" aria-label="5 stars">★ ★ ★ ★ ★</div>
+        <blockquote class="font-serif font-normal italic text-2xl leading-snug tracking-tight mb-7 flex-1"
+                    data-ro="„Vin la noi de doi ani, la două săptămâni. Aceeași echipă de fiecare dată — Andra și Maria sunt parte din familie acum.”"
+                    data-en="„They've been with us for two years, every two weeks. Same team every time — Andra and Maria feel like family now.”">
+          „Vin la noi de doi ani, la două săptămâni. Aceeași echipă de fiecare dată — Andra și Maria sunt parte din familie acum.”
+        </blockquote>
+        <div class="flex items-center gap-3.5 pt-5 border-t border-white/10">
+          <span class="grid place-items-center size-11 rounded-full bg-sand text-eucalyptus-deep font-serif font-medium text-lg">AP</span>
+          <div>
+            <div class="text-[15px] font-medium">Andrei Popescu</div>
+            <div class="text-[13.5px] text-white/65">Primăverii</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="text-sand tracking-[3px] text-sm mb-4" aria-label="5 stars">★ ★ ★ ★ ★</div>
+        <blockquote class="font-serif font-normal italic text-2xl leading-snug tracking-tight mb-7 flex-1"
+                    data-ro="„Produse sigure pentru copilul nostru de 2 ani, fără mirosuri agresive. Și e o ușurare să ne întoarcem acasă într-o casă care doar… miroase a curat.”"
+                    data-en="„Safe products for our 2-year-old, no harsh smells. And it's such a relief to come home to a place that just… smells clean.”">
+          „Produse sigure pentru copilul nostru de 2 ani, fără mirosuri agresive. Și e o ușurare să ne întoarcem acasă într-o casă care doar… miroase a curat.”
+        </blockquote>
+        <div class="flex items-center gap-3.5 pt-5 border-t border-white/10">
+          <span class="grid place-items-center size-11 rounded-full bg-sand text-eucalyptus-deep font-serif font-medium text-lg">DI</span>
+          <div>
+            <div class="text-[15px] font-medium">Diana Ionescu</div>
+            <div class="text-[13.5px] text-white/65">Pipera</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Area ═══ -->
+<section id="area" class="container-fc py-24 lg:py-28">
+  <div class="eyebrow mb-4" data-ro="Zone deservite" data-en="Service area">Zone deservite</div>
+  <h2 class="section-title mb-6"
+      data-ro-html="București și <em>împrejurimi</em>."
+      data-en-html="Bucharest &amp; <em>surroundings</em>.">
+    București și <em>împrejurimi</em>.
+  </h2>
+  <p class="text-[17px] text-ink-2 max-w-xl mb-14"
+     data-ro="Acoperim tot sectorul 1 și 2, plus zonele rezidențiale din apropiere. Deplasare gratuită până la 15 km de Piața Romană."
+     data-en="We cover Sectors 1 and 2 in full, plus nearby residential areas. Free travel within 15 km of Piața Romană.">
+    Acoperim tot sectorul 1 și 2, plus zonele rezidențiale din apropiere. Deplasare gratuită până la 15 km de Piața Romană.
+  </p>
+
+  <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 items-start">
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+      <span class="nbh">Aviatorilor</span>
+      <span class="nbh">Băneasa</span>
+      <span class="nbh">Cotroceni</span>
+      <span class="nbh">Dorobanți</span>
+      <span class="nbh">Floreasca</span>
+      <span class="nbh">Herăstrău</span>
+      <span class="nbh">Pipera</span>
+      <span class="nbh">Primăverii</span>
+      <span class="nbh">Romană</span>
+      <span class="nbh">Tineretului</span>
+      <span class="nbh">Universitate</span>
+      <span class="nbh">Vitan</span>
+      <span class="nbh">Otopeni</span>
+      <span class="nbh">Voluntari</span>
+      <span class="nbh">Tunari</span>
+    </div>
+
+    <aside class="bg-eggshell-2 p-9 rounded-[var(--radius-soft-lg)]">
+      <h4 class="font-serif text-[28px] font-medium mb-3.5" data-ro="Programul nostru" data-en="Our schedule">Programul nostru</h4>
+      <p class="text-ink-2 text-[15.5px] mb-7"
+         data-ro="Răspundem rapid și venim la programul tău, nu invers. Sâmbăta este la cerere."
+         data-en="We respond quickly and come on your schedule, not ours. Saturdays on request.">
+        Răspundem rapid și venim la programul tău, nu invers. Sâmbăta este la cerere.
+      </p>
+      <dl class="flex flex-col">
+        <div class="flex justify-between items-baseline py-4 border-t border-line first:border-t-0 first:pt-0">
+          <dt class="text-[14.5px] text-ink-2" data-ro="Luni – Vineri" data-en="Mon – Fri">Luni – Vineri</dt>
+          <dd class="font-serif text-[22px] text-eucalyptus-deep font-medium">08 – 20</dd>
+        </div>
+        <div class="flex justify-between items-baseline py-4 border-t border-line">
+          <dt class="text-[14.5px] text-ink-2" data-ro="Sâmbătă" data-en="Saturday">Sâmbătă</dt>
+          <dd class="font-serif text-[22px] text-eucalyptus-deep font-medium">09 – 16</dd>
+        </div>
+        <div class="flex justify-between items-baseline py-4 border-t border-line">
+          <dt class="text-[14.5px] text-ink-2" data-ro="Rază de deplasare" data-en="Travel radius">Rază de deplasare</dt>
+          <dd class="font-serif text-[22px] text-eucalyptus-deep font-medium">15 km</dd>
+        </div>
+        <div class="flex justify-between items-baseline py-4 border-t border-line">
+          <dt class="text-[14.5px] text-ink-2" data-ro="Timp de răspuns" data-en="Response time">Timp de răspuns</dt>
+          <dd class="font-serif text-[22px] text-eucalyptus-deep font-medium">&lt; 2h</dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══ Booking ═══ -->
+<section id="book" class="bg-eggshell-2 py-24 lg:py-28">
+  <div class="container-fc">
+    <div class="eyebrow mb-4" data-ro="Rezervare" data-en="Booking">Rezervare</div>
+    <h2 class="section-title mb-6"
+        data-ro-html="Rezervă o vizită <em>fără bătăi de cap</em>."
+        data-en-html="Book a visit, <em>no hassle</em>.">
+      Rezervă o vizită <em>fără bătăi de cap</em>.
+    </h2>
+    <p class="text-[17px] text-ink-2 max-w-xl mb-14"
+       data-ro="Trimite formularul și te contactăm în maxim 2 ore pentru a confirma data și prețul."
+       data-en="Send the form and we'll reach out within 2 hours to confirm date and price.">
+      Trimite formularul și te contactăm în maxim 2 ore pentru a confirma data și prețul.
+    </p>
+
+    <div class="grid lg:grid-cols-[1fr_1.3fr] gap-16 items-start">
+      <div>
+        <h3 class="font-serif text-[32px] font-medium mb-3 leading-tight" data-ro="Sau sună-ne direct" data-en="Or call us directly">Sau sună-ne direct</h3>
+        <p class="text-ink-2 max-w-xs mb-7"
+           data-ro="Suntem aici de luni până sâmbătă, între 08:00 și 20:00."
+           data-en="Mon–Sat, 8 AM to 8 PM.">
+          Suntem aici de luni până sâmbătă, între 08:00 și 20:00.
+        </p>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-3.5 py-5 border-t border-line">
+            <span class="grid place-items-center size-10 rounded-full bg-paper text-eucalyptus" aria-hidden="true">☎</span>
+            <div>
+              <div class="text-xs text-muted tracking-widest uppercase" data-ro="Telefon" data-en="Phone">Telefon</div>
+              <div class="font-serif text-[22px] font-medium mt-0.5">+40 723 000 000</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3.5 py-5 border-t border-line">
+            <span class="grid place-items-center size-10 rounded-full bg-paper text-eucalyptus" aria-hidden="true">✉</span>
+            <div>
+              <div class="text-xs text-muted tracking-widest uppercase">Email</div>
+              <div class="font-serif text-[22px] font-medium mt-0.5">hello@familycleaning.ro</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3.5 py-5 border-y border-line">
+            <span class="grid place-items-center size-10 rounded-full bg-paper text-eucalyptus" aria-hidden="true">⌖</span>
+            <div>
+              <div class="text-xs text-muted tracking-widest uppercase" data-ro="Adresă" data-en="Address">Adresă</div>
+              <div class="font-serif text-[22px] font-medium mt-0.5">Calea Floreasca 169</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="bg-paper rounded-[var(--radius-soft-lg)] p-7 sm:p-10 grid sm:grid-cols-2 gap-5 shadow-[0_30px_60px_-30px_rgba(37,39,31,0.15)]"
+            onsubmit="event.preventDefault(); alert(document.documentElement.lang==='ro' ? 'Mulțumim! Te contactăm în scurt timp.' : 'Thanks! We will be in touch shortly.');">
+        <div class="flex flex-col gap-2">
+          <label class="text-[13px] text-ink-2 font-medium" data-ro="Nume" data-en="Name">Nume</label>
+          <input class="field-input" type="text" required placeholder="Ana Popescu" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-[13px] text-ink-2 font-medium" data-ro="Telefon" data-en="Phone">Telefon</label>
+          <input class="field-input" type="tel" required placeholder="+40 723 000 000" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-[13px] text-ink-2 font-medium" data-ro="Serviciu" data-en="Service">Serviciu</label>
+          <select class="field-input">
+            <option data-ro="Curățenie regulată" data-en="Regular cleaning">Curățenie regulată</option>
+            <option data-ro="Curățenie generală" data-en="Deep cleaning">Curățenie generală</option>
+            <option data-ro="Mutare (intrare / ieșire)" data-en="Move-in / move-out">Mutare (intrare / ieșire)</option>
+            <option data-ro="Post-construcție" data-en="Post-construction">Post-construcție</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-[13px] text-ink-2 font-medium" data-ro="Data preferată" data-en="Preferred date">Data preferată</label>
+          <input class="field-input" type="date" />
+        </div>
+        <div class="flex flex-col gap-2 sm:col-span-2">
+          <label class="text-[13px] text-ink-2 font-medium" data-ro="Adresă" data-en="Address">Adresă</label>
+          <input class="field-input" type="text" data-ph-ro="Strada, sector, București" data-ph-en="Street, sector, Bucharest" placeholder="Strada, sector, București" />
+        </div>
+        <div class="flex flex-col gap-2 sm:col-span-2">
+          <label class="text-[13px] text-ink-2 font-medium" data-ro="Mesaj (opțional)" data-en="Notes (optional)">Mesaj (opțional)</label>
+          <textarea class="field-input min-h-24 resize-y" data-ph-ro="Suprafață, număr de camere, particularități…" data-ph-en="Size, rooms, anything we should know…" placeholder="Suprafață, număr de camere, particularități…"></textarea>
+        </div>
+        <div class="sm:col-span-2 flex justify-between items-center flex-wrap gap-3 mt-2">
+          <small class="text-muted text-[13.5px] italic font-serif" data-ro="Oferta este gratuită." data-en="The quote is free.">Oferta este gratuită.</small>
+          <button class="btn btn-primary" type="submit">
+            <span data-ro="Trimite cererea →" data-en="Send request →">Trimite cererea →</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Footer ═══ -->
+<footer class="bg-eggshell-2 pt-20 pb-10">
+  <div class="container-fc">
+    <div class="bg-paper rounded-[var(--radius-soft-lg)] p-12 flex justify-between items-center flex-wrap gap-6 mb-14">
+      <h3 class="font-serif text-[34px] font-medium max-w-[540px] leading-tight"
+          data-ro-html="Lasă-ne să avem grijă de casa ta — <em class='italic text-eucalyptus'>începe astăzi</em>."
+          data-en-html="Let us look after your home — <em class='italic text-eucalyptus'>start today</em>.">
+        Lasă-ne să avem grijă de casa ta — <em class="italic text-eucalyptus">începe astăzi</em>.
+      </h3>
+      <a href="#book" class="btn btn-primary">
+        <span data-ro="Rezervă acum" data-en="Book now">Rezervă acum</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="flex justify-between flex-wrap gap-6 text-muted text-[13.5px] pt-8 border-t border-line">
+      <span>© 2026 Family Cleaning · București</span>
+      <span data-ro="Construit cu grijă pentru familii." data-en="Built with care for families.">Construit cu grijă pentru familii.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared/i18n.js"></script>
 </body>
 </html>

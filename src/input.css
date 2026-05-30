@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+/* ─── Theme tokens (Tailwind v4 CSS-first config) ────────────────────────── */
+@theme {
+  /* Soft-natural palette */
+  --color-eggshell: #faf7f0;
+  --color-eggshell-2: #f1ede3;
+  --color-eggshell-3: #e6e7dd;
+  --color-paper: #ffffff;
+  --color-ink: #25271f;
+  --color-ink-2: #4d5043;
+  --color-muted: #828374;
+  --color-line: #e3dfd1;
+  --color-eucalyptus: #5c7a64;
+  --color-eucalyptus-deep: #3d5a45;
+  --color-sand: #d9c3a0;
+  --color-sand-deep: #8e6f47;
+  --color-gold: #c9a85a;
+
+  /* Typography */
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Radii — soft, organic */
+  --radius-soft: 20px;
+  --radius-soft-lg: 32px;
+
+  /* Section gutter */
+  --spacing-pad-x: clamp(24px, 6vw, 96px);
+}
+
+/* ─── Base layer ─────────────────────────────────────────────────────────── */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-eggshell);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--color-sand); color: var(--color-ink); }
+}
+
+/* ─── Brand components ───────────────────────────────────────────────────── */
+@layer components {
+
+  /* Container — site-wide gutter + max width */
+  .container-fc {
+    width: 100%;
+    max-width: 1300px;
+    margin-inline: auto;
+    padding-inline: var(--spacing-pad-x);
+  }
+
+  /* Pill (top of hero) */
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 14px; border-radius: 999px;
+    background: var(--color-eggshell-2);
+    font-size: 13.5px; color: var(--color-ink-2);
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-eucalyptus); }
+
+  /* Eyebrow (section opener) */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 22px; font-weight: 500;
+    color: var(--color-eucalyptus);
+  }
+  .eyebrow::before {
+    content: ""; width: 30px; height: 1px; background: currentColor;
+  }
+
+  /* Buttons — soft round pills */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 22px; border-radius: 999px;
+    font: 500 15px var(--font-sans);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .btn-primary { background: var(--color-eucalyptus); color: var(--color-paper); }
+  .btn-primary:hover { background: var(--color-eucalyptus-deep); transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(61, 90, 69, 0.4); }
+  .btn-soft { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-line); }
+  .btn-soft:hover { border-color: var(--color-ink); }
+
+  /* Language switch */
+  .lang-switch {
+    display: inline-flex; border-radius: 999px; padding: 3px;
+    background: var(--color-eggshell-2);
+  }
+  .lang-switch button {
+    border: 0; background: transparent;
+    padding: 6px 12px; border-radius: 999px;
+    font: 500 13px var(--font-sans); letter-spacing: 0.04em;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .lang-switch button.is-active {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+
+  /* Section title (Cormorant 5xl/6xl) */
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(42px, 5.2vw, 76px);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+  }
+  .section-title em { font-style: italic; color: var(--color-eucalyptus); font-weight: 400; }
+
+  /* Hero headline */
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(56px, 7vw, 100px);
+    line-height: 1.0;
+    letter-spacing: -0.015em;
+  }
+  .hero-title em { font-style: italic; color: var(--color-eucalyptus); font-weight: 400; }
+
+  /* Organic blob shapes behind the hero photo */
+  .blob {
+    position: absolute;
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    z-index: -1;
+  }
+  .blob-alt {
+    border-radius: 45% 55% 40% 60% / 60% 45% 55% 40%;
+  }
+
+  /* Floating info card on hero */
+  .float-card {
+    position: absolute;
+    background: var(--color-paper);
+    padding: 14px 18px;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px -10px rgba(37, 39, 31, 0.15);
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  /* Service card */
+  .service-card {
+    background: var(--color-paper);
+    border-radius: var(--radius-soft);
+    padding: 36px 36px 32px;
+    display: flex; flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -16px rgba(37, 39, 31, 0.15);
+  }
+
+  /* Leaf icon dot (services / hero floating card) */
+  .leaf-dot {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: color-mix(in srgb, var(--color-eucalyptus) 12%, transparent);
+    color: var(--color-eucalyptus);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .leaf-dot-sm {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: color-mix(in srgb, var(--color-eucalyptus) 15%, transparent);
+    color: var(--color-eucalyptus);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+
+  /* Dashed divider above price block */
+  .price-divider { border-top: 1px dashed var(--color-line); }
+
+  /* Drop-cap on the family body paragraph */
+  .drop-cap::first-letter {
+    font-family: var(--font-serif);
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 0.9;
+    float: left;
+    padding: 8px 14px 0 0;
+    color: var(--color-eucalyptus);
+  }
+
+  /* Neighborhood pill (area grid) */
+  .nbh {
+    background: var(--color-paper);
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 15px;
+    display: flex; align-items: center; gap: 10px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .nbh::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--color-eucalyptus);
+    flex-shrink: 0;
+  }
+  .nbh:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -10px rgba(37, 39, 31, 0.15); }
+
+  /* Form fields */
+  .field-input {
+    background: var(--color-eggshell);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 13px 16px;
+    font: 400 15.5px var(--font-sans);
+    color: var(--color-ink);
+    transition: border-color .2s, background .2s;
+    width: 100%;
+  }
+  .field-input:focus {
+    outline: 0;
+    border-color: var(--color-eucalyptus);
+    background: var(--color-paper);
+  }
+
+  /* Testimonial card on the dark band */
+  .testimonial {
+    background: color-mix(in srgb, white 6%, transparent);
+    border: 1px solid color-mix(in srgb, white 10%, transparent);
+    padding: 36px 32px;
+    border-radius: var(--radius-soft);
+    display: flex; flex-direction: column;
+  }
+}

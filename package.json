@@ -1,0 +1,14 @@
+{
+  "name": "family-cleaning-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Family Cleaning — soft-natural one-page site, Tailwind v4 + GitHub Pages",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./dist/styles.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ./dist/styles.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}
