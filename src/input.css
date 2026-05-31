@@ -178,8 +178,13 @@
     flex-shrink: 0;
   }
 
-  /* Dashed divider above price block */
-  .price-divider { border-top: 1px dashed var(--color-line); }
+  /* Dashed divider above price block. min-height reserves room for the
+     two-line price variant (e.g. "de la 500 lei / sesiune" + "sau 20 lei / mp")
+     so the dashed line aligns across all cards in a row. */
+  .price-divider {
+    border-top: 1px dashed var(--color-line);
+    min-height: 74px;
+  }
 
   /* Drop-cap on the family body paragraph */
   .drop-cap::first-letter {
