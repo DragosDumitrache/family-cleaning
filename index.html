@@ -445,7 +445,7 @@
       <div id="calcResult" class="font-serif text-[34px] sm:text-[40px] font-medium leading-tight mt-2">—</div>
       <div id="calcNote" class="text-[13.5px] opacity-75 mt-2 flex-1"></div>
       <button id="calcSend" type="button" class="btn btn-soft mt-7 self-start">
-        <span data-ro="Confirmă estimarea pe WhatsApp →" data-en="Confirm estimate on WhatsApp →">Confirmă estimarea pe WhatsApp →</span>
+        <span data-ro="Continuă cu rezervarea →" data-en="Continue to booking →">Continuă cu rezervarea →</span>
       </button>
     </div>
   </div>
@@ -641,8 +641,6 @@
     var noteEl = document.getElementById('calcNote');
     var sendEl = document.getElementById('calcSend');
 
-    var WHATSAPP_NUMBER = '40762280082';
-
     var SERVICES = {
       maintenance:      { ro: 'Curățenie de întreținere', en: 'Maintenance cleaning', mode: 'flat', base: 300, unit: { ro: '/ vizită', en: '/ visit' } },
       deep:             { ro: 'Curățenie generală', en: 'Deep cleaning', mode: 'sqm', rate: 20, min: 500 },
@@ -654,16 +652,16 @@
     };
 
     var T = {
-      ro: { sqm: 'Suprafață (m²)', kg: 'Greutate (kg)', from: 'de la', perM2: 'lei / mp', perKg: 'lei / kg',
+      ro: { sqm: 'Suprafață (m²)', kg: 'Greutate (kg)', from: 'de la',
             note: 'Preț orientativ. Confirmăm valoarea exactă după o scurtă discuție.',
             flatNote: 'Tarif de pornire. Prețul final depinde de detaliile spațiului.',
             enterQty: 'Introdu o valoare pentru a vedea estimarea.',
-            msgIntro: 'Bună! Aș dori să confirm această estimare de preț.', service: 'Serviciu', size: 'Dimensiune', estimate: 'Estimare' },
-      en: { sqm: 'Area (m²)', kg: 'Weight (kg)', from: 'from', perM2: 'lei / sqm', perKg: 'lei / kg',
+            prefill: 'Estimare din calculator' },
+      en: { sqm: 'Area (m²)', kg: 'Weight (kg)', from: 'from',
             note: 'Indicative price. We confirm the exact amount after a short chat.',
             flatNote: 'Starting rate. The final price depends on the details of the space.',
             enterQty: 'Enter a value to see the estimate.',
-            msgIntro: "Hi! I'd like to confirm this price estimate.", service: 'Service', size: 'Size', estimate: 'Estimate' }
+            prefill: 'Calculator estimate' }
     };
 
     function lang() { return document.documentElement.lang === 'en' ? 'en' : 'ro'; }
@@ -704,37 +702,41 @@
       }
     }
 
-    function send() {
+    // Carry the estimate into the booking form so the visitor leaves their
+    // contact details there — the form logs the lead before opening WhatsApp,
+    // so we capture them even if they never send the message.
+    function continueToForm() {
       var l = lang();
-      var t = T[l];
       var svc = SERVICES[serviceEl.value];
       var qty = parseFloat(qtyEl.value);
       var r = compute(svc, qty);
+      var sizeText = (svc.mode !== 'flat' && qty > 0) ? qty + (svc.mode === 'kg' ? ' kg' : ' m²') : '';
+      var estimateText = r ? (r.flat ? T[l].from + ' ' : '≈ ') + fmt(r.value) + ' lei' + (r.flat ? ' ' + svc.unit[l] : '') : '';
 
-      var lines = [t.msgIntro, ''];
-      lines.push(t.service + ': ' + svc[l]);
-      if (svc.mode !== 'flat' && qty > 0) {
-        lines.push(t.size + ': ' + qty + (svc.mode === 'kg' ? ' kg' : ' m²'));
+      var bookingForm = document.getElementById('bookingForm');
+      if (bookingForm) {
+        // The calculator and booking selects list services in the same order.
+        if (bookingForm.elements.service) bookingForm.elements.service.selectedIndex = serviceEl.selectedIndex;
+
+        var msg = bookingForm.elements.message;
+        if (msg && !msg.value.trim()) {
+          var parts = [svc[l]];
+          if (sizeText) parts.push(sizeText);
+          if (estimateText) parts.push(estimateText);
+          msg.value = T[l].prefill + ': ' + parts.join(' — ');
+        }
       }
-      var estimateText = r ? (r.flat ? t.from + ' ' : '≈ ') + fmt(r.value) + ' lei' + (r.flat ? ' ' + svc.unit[l] : '') : '';
-      if (estimateText) {
-        lines.push(t.estimate + ': ' + estimateText);
+
+      var section = document.getElementById('book');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+      if (bookingForm && bookingForm.elements.name) {
+        setTimeout(function () { bookingForm.elements.name.focus({ preventScroll: true }); }, 500);
       }
-
-      window.fcLogLead({
-        source: 'calculator',
-        service: svc[l],
-        size: (svc.mode !== 'flat' && qty > 0) ? qty + (svc.mode === 'kg' ? ' kg' : ' m²') : '',
-        estimate: estimateText
-      });
-
-      var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
-      window.open(url, '_blank', 'noopener');
     }
 
     serviceEl.addEventListener('change', render);
     qtyEl.addEventListener('input', render);
-    sendEl.addEventListener('click', send);
+    sendEl.addEventListener('click', continueToForm);
 
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
     render();
