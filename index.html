@@ -368,40 +368,32 @@
           <div class="flex items-center gap-3.5 py-5 border-t border-line">
             <span class="grid place-items-center size-10 rounded-full bg-paper text-eucalyptus" aria-hidden="true">☎</span>
             <div>
-              <div class="text-xs text-muted tracking-widest uppercase" data-ro="Telefon" data-en="Phone">Telefon</div>
-              <div class="font-serif text-[22px] font-medium mt-0.5">+40 723 000 000</div>
+              <div class="text-xs text-muted tracking-widest uppercase" data-ro="Telefon · WhatsApp" data-en="Phone · WhatsApp">Telefon · WhatsApp</div>
+              <a href="https://wa.me/40762280082" target="_blank" rel="noopener" class="font-serif text-[22px] font-medium mt-0.5 block hover:text-eucalyptus transition-colors">+40 762 280 082</a>
             </div>
           </div>
           <div class="flex items-center gap-3.5 py-5 border-t border-line">
             <span class="grid place-items-center size-10 rounded-full bg-paper text-eucalyptus" aria-hidden="true">✉</span>
             <div>
               <div class="text-xs text-muted tracking-widest uppercase">Email</div>
-              <div class="font-serif text-[22px] font-medium mt-0.5">hello@familycleaning.ro</div>
-            </div>
-          </div>
-          <div class="flex items-center gap-3.5 py-5 border-y border-line">
-            <span class="grid place-items-center size-10 rounded-full bg-paper text-eucalyptus" aria-hidden="true">⌖</span>
-            <div>
-              <div class="text-xs text-muted tracking-widest uppercase" data-ro="Adresă" data-en="Address">Adresă</div>
-              <div class="font-serif text-[22px] font-medium mt-0.5">Calea Floreasca 169</div>
+              <a href="mailto:familycleaning380@gmail.com" class="font-serif text-[22px] font-medium mt-0.5 block hover:text-eucalyptus transition-colors break-all">familycleaning380@gmail.com</a>
             </div>
           </div>
         </div>
       </div>
 
-      <form class="bg-paper rounded-[var(--radius-soft-lg)] p-7 sm:p-10 grid sm:grid-cols-2 gap-5 shadow-[0_30px_60px_-30px_rgba(37,39,31,0.15)]"
-            onsubmit="event.preventDefault(); alert(document.documentElement.lang==='ro' ? 'Mulțumim! Te contactăm în scurt timp.' : 'Thanks! We will be in touch shortly.');">
+      <form id="bookingForm" class="bg-paper rounded-[var(--radius-soft-lg)] p-7 sm:p-10 grid sm:grid-cols-2 gap-5 shadow-[0_30px_60px_-30px_rgba(37,39,31,0.15)]">
         <div class="flex flex-col gap-2">
           <label class="text-[13px] text-ink-2 font-medium" data-ro="Nume" data-en="Name">Nume</label>
-          <input class="field-input" type="text" required placeholder="Ana Popescu" />
+          <input name="name" class="field-input" type="text" required placeholder="Ana Popescu" />
         </div>
         <div class="flex flex-col gap-2">
           <label class="text-[13px] text-ink-2 font-medium" data-ro="Telefon" data-en="Phone">Telefon</label>
-          <input class="field-input" type="tel" required placeholder="+40 723 000 000" />
+          <input name="phone" class="field-input" type="tel" required placeholder="+40 723 000 000" />
         </div>
         <div class="flex flex-col gap-2">
           <label class="text-[13px] text-ink-2 font-medium" data-ro="Serviciu" data-en="Service">Serviciu</label>
-          <select class="field-input">
+          <select name="service" class="field-input">
             <option data-ro="Curățenie de întreținere" data-en="Maintenance cleaning">Curățenie de întreținere</option>
             <option data-ro="Curățenie generală" data-en="Deep cleaning">Curățenie generală</option>
             <option data-ro="Post-construcție" data-en="Post-construction">Post-construcție</option>
@@ -413,15 +405,15 @@
         </div>
         <div class="flex flex-col gap-2">
           <label class="text-[13px] text-ink-2 font-medium" data-ro="Data preferată" data-en="Preferred date">Data preferată</label>
-          <input class="field-input" type="date" />
+          <input name="date" class="field-input" type="date" />
         </div>
         <div class="flex flex-col gap-2 sm:col-span-2">
           <label class="text-[13px] text-ink-2 font-medium" data-ro="Adresă" data-en="Address">Adresă</label>
-          <input class="field-input" type="text" data-ph-ro="Strada, sector, București" data-ph-en="Street, sector, Bucharest" placeholder="Strada, sector, București" />
+          <input name="address" class="field-input" type="text" data-ph-ro="Strada, sector, București" data-ph-en="Street, sector, Bucharest" placeholder="Strada, sector, București" />
         </div>
         <div class="flex flex-col gap-2 sm:col-span-2">
           <label class="text-[13px] text-ink-2 font-medium" data-ro="Mesaj (opțional)" data-en="Notes (optional)">Mesaj (opțional)</label>
-          <textarea class="field-input min-h-24 resize-y" data-ph-ro="Suprafață, număr de camere, particularități…" data-ph-en="Size, rooms, anything we should know…" placeholder="Suprafață, număr de camere, particularități…"></textarea>
+          <textarea name="message" class="field-input min-h-24 resize-y" data-ph-ro="Suprafață, număr de camere, particularități…" data-ph-en="Size, rooms, anything we should know…" placeholder="Suprafață, număr de camere, particularități…"></textarea>
         </div>
         <div class="sm:col-span-2 flex justify-between items-center flex-wrap gap-3 mt-2">
           <small class="text-muted text-[13.5px] italic font-serif" data-ro="Oferta este gratuită." data-en="The quote is free.">Oferta este gratuită.</small>
@@ -456,5 +448,39 @@
 </footer>
 
 <script src="shared/i18n.js"></script>
+<script>
+  (function () {
+    var form = document.getElementById('bookingForm');
+    if (!form) return;
+
+    var WHATSAPP_NUMBER = '40762280082';
+
+    var LABELS = {
+      ro: { intro: 'Bună! Aș dori să rezerv o curățenie.', name: 'Nume', phone: 'Telefon', service: 'Serviciu', date: 'Data preferată', address: 'Adresă', message: 'Mesaj' },
+      en: { intro: 'Hi! I would like to book a cleaning.', name: 'Name', phone: 'Phone', service: 'Service', date: 'Preferred date', address: 'Address', message: 'Notes' }
+    };
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var lang = document.documentElement.lang === 'en' ? 'en' : 'ro';
+      var t = LABELS[lang];
+      var f = form.elements;
+
+      var lines = [t.intro, ''];
+      function add(label, value) {
+        if (value && value.trim()) lines.push(label + ': ' + value.trim());
+      }
+      add(t.name, f.name.value);
+      add(t.phone, f.phone.value);
+      add(t.service, f.service.value);
+      add(t.date, f.date.value);
+      add(t.address, f.address.value);
+      add(t.message, f.message.value);
+
+      var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+      window.open(url, '_blank', 'noopener');
+    });
+  })();
+</script>
 </body>
 </html>
