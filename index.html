@@ -6,6 +6,70 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <title>Family Cleaning — Curățenie făcută cu grijă, ca acasă</title>
 <meta name="description" content="Family Cleaning — o echipă mică din București care îngrijește casele familiilor de peste opt ani. Produse blânde, oameni de încredere, fără surprize." />
+<link rel="canonical" href="https://familycleaning.ro/" />
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Family Cleaning" />
+<meta property="og:locale" content="ro_RO" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:url" content="https://familycleaning.ro/" />
+<meta property="og:title" content="Family Cleaning — Curățenie făcută cu grijă, ca acasă" />
+<meta property="og:description" content="O echipă mică din București care îngrijește casele familiilor de peste opt ani. Produse blânde, oameni de încredere, fără surprize." />
+<meta property="og:image" content="https://familycleaning.ro/assets/photos/hero-living.jpg" />
+<meta property="og:image:width" content="1800" />
+<meta property="og:image:height" content="1012" />
+<meta property="og:image:alt" content="Family Cleaning — living îngrijit" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Family Cleaning — Curățenie făcută cu grijă, ca acasă" />
+<meta name="twitter:description" content="O echipă mică din București care îngrijește casele familiilor de peste opt ani." />
+<meta name="twitter:image" content="https://familycleaning.ro/assets/photos/hero-living.jpg" />
+
+<!-- LocalBusiness structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://familycleaning.ro/#business",
+  "name": "Family Cleaning",
+  "url": "https://familycleaning.ro/",
+  "image": "https://familycleaning.ro/assets/photos/hero-living.jpg",
+  "logo": "https://familycleaning.ro/assets/logo-lockup.svg",
+  "description": "O echipă mică din București care îngrijește casele familiilor de peste opt ani. Produse blânde, oameni de încredere, fără surprize.",
+  "telephone": "+40762280082",
+  "email": "familycleaning380@gmail.com",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "București",
+    "addressCountry": "RO"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "București"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "opens": "08:00",
+    "closes": "20:00"
+  }],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicii de curățenie",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Curățenie de întreținere" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Curățenie generală" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Curățenie post-construcție" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Regim hotelier" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Spații comerciale" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Scări de bloc" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Spălătorie" } }
+    ]
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,7 +80,7 @@
 <!-- ═══ Header ═══ -->
 <header class="sticky top-0 z-50 backdrop-blur-md backdrop-saturate-150 bg-[rgba(250,247,240,0.88)]">
   <div class="container-fc flex items-center justify-between py-5">
-    <a href="#" class="flex items-center gap-3 font-serif text-[26px] font-medium tracking-tight">
+    <a href="/" class="flex items-center gap-3 font-serif text-[26px] font-medium tracking-tight" aria-label="Family Cleaning — acasă">
       <span class="grid place-items-center size-10 rounded-full bg-eucalyptus text-paper">
         <img src="assets/logo-monogram.svg" alt="" class="size-6 [filter:brightness(0)_invert(1)]" />
       </span>
@@ -482,5 +546,7 @@
     });
   })();
 </script>
+<!-- Cloudflare Web Analytics (cookieless) — replace the token with the one from your Cloudflare dashboard -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_YOUR_CLOUDFLARE_TOKEN"}'></script>
 </body>
 </html>
