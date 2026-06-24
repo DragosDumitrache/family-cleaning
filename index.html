@@ -91,6 +91,7 @@
       <a href="#services" class="hover:text-eucalyptus transition-colors" data-ro="Servicii" data-en="Services">Servicii</a>
       <a href="#about" class="hover:text-eucalyptus transition-colors" data-ro="Despre noi" data-en="About">Despre noi</a>
       <a href="#area" class="hover:text-eucalyptus transition-colors" data-ro="Zone" data-en="Areas">Zone</a>
+      <a href="#calculator" class="hover:text-eucalyptus transition-colors" data-ro="Calculator" data-en="Calculator">Calculator</a>
       <a href="#book" class="hover:text-eucalyptus transition-colors" data-ro="Rezervare" data-en="Booking">Rezervare</a>
     </nav>
 
@@ -405,6 +406,51 @@
   </div>
 </section>
 
+<!-- ═══ Price calculator ═══ -->
+<section id="calculator" class="container-fc py-24 lg:py-28">
+  <div class="eyebrow mb-4" data-ro="Calculator de preț" data-en="Price calculator">Calculator de preț</div>
+  <h2 class="section-title mb-6 max-w-3xl"
+      data-ro-html="Estimează în <em>câteva secunde</em>."
+      data-en-html="Estimate in <em>seconds</em>.">
+    Estimează în <em>câteva secunde</em>.
+  </h2>
+  <p class="text-[17px] text-ink-2 max-w-xl mb-14"
+     data-ro="Alege serviciul și introdu suprafața. Prețul afișat este orientativ — confirmăm valoarea exactă după o scurtă discuție."
+     data-en="Pick a service and enter the size. The figure shown is an estimate — we confirm the exact amount after a short chat.">
+    Alege serviciul și introdu suprafața. Prețul afișat este orientativ — confirmăm valoarea exactă după o scurtă discuție.
+  </p>
+
+  <div class="grid lg:grid-cols-2 gap-6 items-stretch max-w-4xl">
+    <div class="bg-paper rounded-[var(--radius-soft-lg)] p-7 sm:p-10 shadow-[0_30px_60px_-30px_rgba(37,39,31,0.15)] flex flex-col gap-5">
+      <div class="flex flex-col gap-2">
+        <label class="text-[13px] text-ink-2 font-medium" for="calcService" data-ro="Serviciu" data-en="Service">Serviciu</label>
+        <select id="calcService" class="field-input">
+          <option value="maintenance" data-ro="Curățenie de întreținere" data-en="Maintenance cleaning">Curățenie de întreținere</option>
+          <option value="deep" selected data-ro="Curățenie generală" data-en="Deep cleaning">Curățenie generală</option>
+          <option value="postconstruction" data-ro="Post-construcție" data-en="Post-construction">Post-construcție</option>
+          <option value="hospitality" data-ro="Regim hotelier" data-en="Hospitality cleaning">Regim hotelier</option>
+          <option value="commercial" data-ro="Spații comerciale" data-en="Commercial spaces">Spații comerciale</option>
+          <option value="stairwells" data-ro="Scări de bloc" data-en="Building stairwells">Scări de bloc</option>
+          <option value="laundry" data-ro="Spălătorie" data-en="Laundry">Spălătorie</option>
+        </select>
+      </div>
+      <div id="calcQtyWrap" class="flex flex-col gap-2">
+        <label id="calcQtyLabel" class="text-[13px] text-ink-2 font-medium" for="calcQty"></label>
+        <input id="calcQty" class="field-input" type="number" min="1" step="1" inputmode="numeric" value="60" />
+      </div>
+    </div>
+
+    <div class="bg-eucalyptus-deep text-paper rounded-[var(--radius-soft-lg)] p-7 sm:p-10 shadow-[0_30px_60px_-30px_rgba(37,39,31,0.25)] flex flex-col">
+      <div class="text-xs tracking-widest uppercase opacity-90" data-ro="Estimare" data-en="Estimate">Estimare</div>
+      <div id="calcResult" class="font-serif text-[34px] sm:text-[40px] font-medium leading-tight mt-2">—</div>
+      <div id="calcNote" class="text-[13.5px] opacity-75 mt-2 flex-1"></div>
+      <button id="calcSend" type="button" class="btn btn-soft mt-7 self-start">
+        <span data-ro="Trimite estimarea pe WhatsApp →" data-en="Send estimate on WhatsApp →">Trimite estimarea pe WhatsApp →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ Booking ═══ -->
 <section id="book" class="bg-eggshell-2 py-24 lg:py-28">
   <div class="container-fc">
@@ -513,6 +559,34 @@
 
 <script src="shared/i18n.js"></script>
 <script>
+  // Silently logs a lead to the linked Google Form / spreadsheet. Fire-and-forget:
+  // no-cors means we can't read the response, but the row is recorded.
+  window.fcLogLead = function (data) {
+    var ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdpLv2pW8w9W42fWryasFLEkXyshAWYz6LoVZxOFlaEvKkXHQ/formResponse';
+    var FIELDS = {
+      source:   'entry.535701923',
+      name:     'entry.816203115',
+      phone:    'entry.235219799',
+      service:  'entry.1086958529',
+      date:     'entry.1383919534',
+      address:  'entry.1552599841',
+      size:     'entry.1468767939',
+      estimate: 'entry.653996487',
+      notes:    'entry.1635070146'
+    };
+    var params = new URLSearchParams();
+    Object.keys(data).forEach(function (key) {
+      var value = data[key];
+      if (FIELDS[key] && value != null && String(value).trim() !== '') {
+        params.append(FIELDS[key], value);
+      }
+    });
+    try {
+      fetch(ACTION, { method: 'POST', mode: 'no-cors', body: params }).catch(function () {});
+    } catch (e) {}
+  };
+</script>
+<script>
   (function () {
     var form = document.getElementById('bookingForm');
     if (!form) return;
@@ -541,9 +615,129 @@
       add(t.address, f.address.value);
       add(t.message, f.message.value);
 
+      window.fcLogLead({
+        source: 'booking',
+        name: f.name.value,
+        phone: f.phone.value,
+        service: f.service.value,
+        date: f.date.value,
+        address: f.address.value,
+        notes: f.message.value
+      });
+
       var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
       window.open(url, '_blank', 'noopener');
     });
+  })();
+</script>
+<script>
+  (function () {
+    var serviceEl = document.getElementById('calcService');
+    if (!serviceEl) return;
+    var qtyWrap = document.getElementById('calcQtyWrap');
+    var qtyLabel = document.getElementById('calcQtyLabel');
+    var qtyEl = document.getElementById('calcQty');
+    var resultEl = document.getElementById('calcResult');
+    var noteEl = document.getElementById('calcNote');
+    var sendEl = document.getElementById('calcSend');
+
+    var WHATSAPP_NUMBER = '40762280082';
+
+    var SERVICES = {
+      maintenance:      { ro: 'Curățenie de întreținere', en: 'Maintenance cleaning', mode: 'flat', base: 300, unit: { ro: '/ vizită', en: '/ visit' } },
+      deep:             { ro: 'Curățenie generală', en: 'Deep cleaning', mode: 'sqm', rate: 20, min: 500 },
+      postconstruction: { ro: 'Post-construcție', en: 'Post-construction', mode: 'sqm', rate: 28 },
+      hospitality:      { ro: 'Regim hotelier', en: 'Hospitality cleaning', mode: 'flat', base: 88, unit: { ro: '/ intervenție', en: '/ service' } },
+      commercial:       { ro: 'Spații comerciale', en: 'Commercial spaces', mode: 'sqm', rate: 25 },
+      stairwells:       { ro: 'Scări de bloc', en: 'Building stairwells', mode: 'flat', base: 150, unit: { ro: '/ intervenție', en: '/ service' } },
+      laundry:          { ro: 'Spălătorie', en: 'Laundry', mode: 'kg', rate: 8 }
+    };
+
+    var T = {
+      ro: { sqm: 'Suprafață (m²)', kg: 'Greutate (kg)', from: 'de la', perM2: 'lei / mp', perKg: 'lei / kg',
+            note: 'Preț orientativ. Confirmăm valoarea exactă după o scurtă discuție.',
+            flatNote: 'Tarif de pornire. Prețul final depinde de detaliile spațiului.',
+            enterQty: 'Introdu o valoare pentru a vedea estimarea.',
+            msgIntro: 'Bună! Aș dori o estimare de preț.', service: 'Serviciu', size: 'Dimensiune', estimate: 'Estimare' },
+      en: { sqm: 'Area (m²)', kg: 'Weight (kg)', from: 'from', perM2: 'lei / sqm', perKg: 'lei / kg',
+            note: 'Indicative price. We confirm the exact amount after a short chat.',
+            flatNote: 'Starting rate. The final price depends on the details of the space.',
+            enterQty: 'Enter a value to see the estimate.',
+            msgIntro: 'Hi! I would like a price estimate.', service: 'Service', size: 'Size', estimate: 'Estimate' }
+    };
+
+    function lang() { return document.documentElement.lang === 'en' ? 'en' : 'ro'; }
+    function fmt(n) { return n.toLocaleString(lang() === 'en' ? 'en-US' : 'ro-RO'); }
+
+    function compute(svc, qty) {
+      if (svc.mode === 'flat') return { value: svc.base, flat: true };
+      if (!(qty > 0)) return null;
+      var raw = svc.rate * qty;
+      return { value: Math.round(Math.max(svc.min || 0, raw)) };
+    }
+
+    function render() {
+      var t = T[lang()];
+      var svc = SERVICES[serviceEl.value];
+
+      if (svc.mode === 'flat') {
+        qtyWrap.classList.add('hidden');
+      } else {
+        qtyWrap.classList.remove('hidden');
+        qtyLabel.textContent = svc.mode === 'kg' ? t.kg : t.sqm;
+      }
+
+      var qty = parseFloat(qtyEl.value);
+      var r = compute(svc, qty);
+
+      if (!r) {
+        resultEl.textContent = '—';
+        noteEl.textContent = t.enterQty;
+        return;
+      }
+      if (r.flat) {
+        resultEl.textContent = t.from + ' ' + fmt(r.value) + ' lei ' + svc.unit[lang()];
+        noteEl.textContent = t.flatNote;
+      } else {
+        resultEl.textContent = '≈ ' + fmt(r.value) + ' lei';
+        noteEl.textContent = t.note;
+      }
+    }
+
+    function send() {
+      var l = lang();
+      var t = T[l];
+      var svc = SERVICES[serviceEl.value];
+      var qty = parseFloat(qtyEl.value);
+      var r = compute(svc, qty);
+
+      var lines = [t.msgIntro, ''];
+      lines.push(t.service + ': ' + svc[l]);
+      if (svc.mode !== 'flat' && qty > 0) {
+        lines.push(t.size + ': ' + qty + (svc.mode === 'kg' ? ' kg' : ' m²'));
+      }
+      var estimateText = r ? (r.flat ? t.from + ' ' : '≈ ') + fmt(r.value) + ' lei' + (r.flat ? ' ' + svc.unit[l] : '') : '';
+      if (estimateText) {
+        lines.push(t.estimate + ': ' + estimateText);
+      }
+
+      window.fcLogLead({
+        source: 'calculator',
+        service: svc[l],
+        size: (svc.mode !== 'flat' && qty > 0) ? qty + (svc.mode === 'kg' ? ' kg' : ' m²') : '',
+        estimate: estimateText
+      });
+
+      var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+      window.open(url, '_blank', 'noopener');
+    }
+
+    serviceEl.addEventListener('change', render);
+    qtyEl.addEventListener('input', render);
+    sendEl.addEventListener('click', send);
+
+    new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    render();
   })();
 </script>
 <!-- Cloudflare Web Analytics (cookieless) -->
