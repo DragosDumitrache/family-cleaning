@@ -13,6 +13,17 @@
   gtag('js', new Date());
 
   gtag('config', 'AW-18269285143');
+
+  // Google Ads conversion tracking. Paste the conversion label from
+  // Google Ads → Goals → Conversions → [your action] → Tag setup.
+  // It looks like 'AbC-D_efGhIjKlMnOp'; leave empty to disable firing.
+  window.FC_CONVERSION_LABEL = '';
+  window.fcReportConversion = function () {
+    if (typeof gtag !== 'function' || !window.FC_CONVERSION_LABEL) return;
+    gtag('event', 'conversion', {
+      send_to: 'AW-18269285143/' + window.FC_CONVERSION_LABEL
+    });
+  };
 </script>
 
 <title>Family Cleaning — Curățenie făcută cu grijă, ca acasă</title>
@@ -490,7 +501,7 @@
             <span class="grid place-items-center size-10 rounded-full bg-paper text-eucalyptus" aria-hidden="true">☎</span>
             <div>
               <div class="text-xs text-muted tracking-widest uppercase" data-ro="Telefon · WhatsApp" data-en="Phone · WhatsApp">Telefon · WhatsApp</div>
-              <a href="https://wa.me/40762280082" target="_blank" rel="noopener" class="font-serif text-[22px] font-medium mt-0.5 block hover:text-eucalyptus transition-colors">+40 762 280 082</a>
+              <a href="https://wa.me/40762280082" target="_blank" rel="noopener" data-fc-conversion class="font-serif text-[22px] font-medium mt-0.5 block hover:text-eucalyptus transition-colors">+40 762 280 082</a>
             </div>
           </div>
           <div class="flex items-center gap-3.5 py-5 border-t border-line">
@@ -644,8 +655,17 @@
         notes: f.message.value
       });
 
+      if (window.fcReportConversion) window.fcReportConversion();
+
       var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
       window.open(url, '_blank', 'noopener');
+    });
+
+    // Fire a conversion when a visitor taps the direct WhatsApp/phone link too.
+    Array.prototype.forEach.call(document.querySelectorAll('[data-fc-conversion]'), function (el) {
+      el.addEventListener('click', function () {
+        if (window.fcReportConversion) window.fcReportConversion();
+      });
     });
   })();
 </script>
